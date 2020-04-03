@@ -13,8 +13,18 @@ import (
 	. "github.com/eyedeekay/go-fpw"
 )
 
-var EXTENSIONS = []string{"i2ppb@eyedeekay.github.io.xpi"}
-var EXTENSIONHASHES = []string{"bca6f385637c76445775af6271f8e9621966283f2f648cef9db9c635b6662f6d"}
+var EXTENSIONS = []string{
+	"i2ppb@eyedeekay.github.io.xpi",
+	"{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi",
+	"uBlock0@raymondhill.net.xpi",
+	"uMatrix@raymondhill.net.xpi",
+}
+var EXTENSIONHASHES = []string{
+	"bca6f385637c76445775af6271f8e9621966283f2f648cef9db9c635b6662f6d",
+	"f53f00ec9e689c7ddb4aaeec56bf50e61161ce7fbaaf2d2b49032c4c648120a2",
+	"997aac00064665641298047534c9392492ef09f0cbf177b6a30d4fa288081579",
+	"991f0fa5c64172b8a2bc0a010af60743eba1c18078c490348e1c6631882cbfc7",
+}
 var ARGS = []string{
 	/*"--example-arg",*/
 }
@@ -60,26 +70,23 @@ func writeExtension(val os.FileInfo, system http.FileSystem) {
 	}
 }
 
-func main() {
+func writeProfile(system http.FileSystem) {
 	if embedded, err := FS.Readdir(-1); err != nil {
 		log.Fatal("Extension error, embedded extension not read.", err)
 	} else {
 		os.MkdirAll(userdir+"/extensions", FS.Mode())
 		for _, val := range embedded {
 			if val.IsDir() {
-				if embedded, err := FS.Readdir(-1); err != nil {
-					log.Fatal("Extension error, embedded extension not read.", err)
-				} else {
-					os.MkdirAll(userdir+"/extensions", FS.Mode())
-					for _, val := range embedded {
-						writeExtension(val, FS)
-					}
-				}
+				os.MkdirAll(userdir+"/"+val.Name(), FS.Mode())
 			} else {
 				writeExtension(val, FS)
 			}
 		}
 	}
+}
+
+func main() {
+	writeProfile(FS)
 	prefs := userdir + "/user.js"
 	if _, err := os.Stat(prefs); os.IsNotExist(err) {
 		if err := ioutil.WriteFile(prefs, []byte(PREFS), 0644); err == nil {

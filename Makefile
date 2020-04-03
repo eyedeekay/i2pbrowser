@@ -1,7 +1,7 @@
 
 VERSION=0.73
 SNOW_VERSION=0.2.2
-LAUNCH_VERSION=$(EXT_VERSION).01
+LAUNCH_VERSION=$(VERSION).01
 
 build: setup assets.go
 	go build
@@ -37,6 +37,11 @@ ifox/uBlock0@raymondhill.net.xpi: ifox
 ifox/uMatrix@raymondhill.net.xpi: ifox
 	wget -c -O ifox/uMatrix@raymondhill.net.xpi https://addons.mozilla.org/firefox/downloads/file/3396815/umatrix-1.4.0-an+fx.xpi
 
+sums: setup
+	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi
+	sha256sum 'ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi'
+	sha256sum ifox/uBlock0@raymondhill.net.xpi
+	sha256sum ifox/uMatrix@raymondhill.net.xpi
 
 all: setup assets.go
 	GOOS=windows go build -o i2pfirefox.exe
