@@ -1,10 +1,14 @@
 
 VERSION=0.73
 SNOW_VERSION=0.2.2
+UMAT_VERSION=1.25.2
+UBLO_VERSION=1.4.0
 LAUNCH_VERSION=$(VERSION).02
 
 build: setup assets.go
 	go build
+
+assets: clean setup assets.go
 
 assets.go:
 	go run -tags generate gen.go
@@ -32,10 +36,10 @@ ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi: ifox
 	wget -c -O 'ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi' https://addons.mozilla.org/firefox/downloads/file/3519836/snowflake-0.2.2-fx.xpi
 
 ifox/uBlock0@raymondhill.net.xpi: ifox
-	wget -c -O ifox/uBlock0@raymondhill.net.xpi https://addons.mozilla.org/firefox/downloads/file/3521827/ublock_origin-1.25.2-an+fx.xpi
+	wget -c -O ifox/uBlock0@raymondhill.net.xpi https://addons.mozilla.org/firefox/downloads/file/3521827/ublock_origin-$(UBLO_VERSION)-an+fx.xpi
 
 ifox/uMatrix@raymondhill.net.xpi: ifox
-	wget -c -O ifox/uMatrix@raymondhill.net.xpi https://addons.mozilla.org/firefox/downloads/file/3396815/umatrix-1.4.0-an+fx.xpi
+	wget -c -O ifox/uMatrix@raymondhill.net.xpi https://addons.mozilla.org/firefox/downloads/file/3396815/umatrix-$(UMAT_VERSION)-an+fx.xpi
 
 sums: setup
 	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi
