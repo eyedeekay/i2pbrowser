@@ -7,7 +7,6 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
-	"net/http"
 	"os"
 
 	"github.com/eyedeekay/checki2cp"
@@ -39,7 +38,7 @@ user_pref("browser.library.activity-stream.enabled", false);        // whether t
 
 var userdir = "./i2pfox"
 
-func writeExtension(val os.FileInfo, system http.FileSystem) {
+func writeExtension(val os.FileInfo, system *fs) {
 	if len(val.Name()) > 3 {
 		if !val.IsDir() {
 			file, err := system.Open(val.Name())
@@ -71,7 +70,7 @@ func writeExtension(val os.FileInfo, system http.FileSystem) {
 	}
 }
 
-func writeProfile(FS fs) {
+func writeProfile(FS *fs) {
 	if embedded, err := FS.Readdir(-1); err != nil {
 		log.Fatal("Extension error, embedded extension not read.", err)
 	} else {

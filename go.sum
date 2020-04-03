@@ -1,0 +1,13 @@
+github.com/eyedeekay/checki2cp v0.0.0-20200403213308-750ce7e6d81f h1:rpkO9pKHoNxoUAH2dY9gtIRt+vDCS3t2VUq5V7ZalXA=
+github.com/eyedeekay/checki2cp v0.0.0-20200403213308-750ce7e6d81f/go.mod h1:ZilEsKkjp1K0e9qfUUdrHnz8teb1LU70L8JQzNSQmO8=
+github.com/eyedeekay/go-fpw v0.0.0-20200403201858-3d24733073ff h1:nmfiBxYeXYnUUB7sYoez7VT7mB99hFeHeZtXE69ot9A=
+github.com/eyedeekay/go-fpw v0.0.0-20200403201858-3d24733073ff/go.mod h1:F4d0cXDXTK6ZsAnxmATan3VyDV4k9P9ciCGRKt/fVik=
+github.com/eyedeekay/go-i2cp v0.0.0-20190716135428-6d41bed718b0 h1:rnn9OlD/3+tATEZNuiMR1C84O5CX8bZL2qqgttprKrw=
+github.com/eyedeekay/go-i2cp v0.0.0-20190716135428-6d41bed718b0/go.mod h1:+P0fIhkqIYjo7exMJRTlSteRMbRyHbiBiKw+YlPWk+c=
+github.com/zserge/lorca v0.1.9 h1:vbDdkqdp2/rmeg8GlyCewY2X8Z+b0s7BqWyIQL/gakc=
+github.com/zserge/lorca v0.1.9/go.mod h1:bVmnIbIRlOcoV285KIRSe4bUABKi7R7384Ycuum6e4A=
+golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
+golang.org/x/net v0.0.0-20200222125558-5a598a2470a0 h1:MsuvTghUPjX762sGLnGsxC3HM0B5r83wEtYcYR8/vRs=
+golang.org/x/net v0.0.0-20200222125558-5a598a2470a0/go.mod h1:z5CRVTTTmAJ677TzLLGU+0bjPO0LkuOLi4/5GtJWs/s=
+golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
+golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=
