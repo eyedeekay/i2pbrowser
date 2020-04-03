@@ -1,7 +1,7 @@
 
 VERSION=0.73
 SNOW_VERSION=0.2.2
-LAUNCH_VERSION=$(VERSION).01
+LAUNCH_VERSION=$(VERSION).02
 
 build: setup assets.go
 	go build
