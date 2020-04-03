@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/eyedeekay/checki2cp"
 	. "github.com/eyedeekay/go-fpw"
 )
 
@@ -70,14 +71,14 @@ func writeExtension(val os.FileInfo, system http.FileSystem) {
 	}
 }
 
-func writeProfile(system http.FileSystem) {
+func writeProfile(FS fs) {
 	if embedded, err := FS.Readdir(-1); err != nil {
 		log.Fatal("Extension error, embedded extension not read.", err)
 	} else {
-		os.MkdirAll(userdir+"/extensions", FS.Mode())
+		os.MkdirAll(userdir+"/extensions", 0755)
 		for _, val := range embedded {
 			if val.IsDir() {
-				os.MkdirAll(userdir+"/"+val.Name(), FS.Mode())
+				os.MkdirAll(userdir+"/"+val.Name(), val.Mode())
 			} else {
 				writeExtension(val, FS)
 			}
@@ -86,6 +87,13 @@ func writeProfile(system http.FileSystem) {
 }
 
 func main() {
+	if ok, err := checki2p.ConditionallyLaunchI2P(); ok {
+		if err != nil {
+			log.Fatal(err)
+		}
+	} else {
+		log.Fatal("Undefined I2P launching error")
+	}
 	writeProfile(FS)
 	prefs := userdir + "/user.js"
 	if _, err := os.Stat(prefs); os.IsNotExist(err) {
