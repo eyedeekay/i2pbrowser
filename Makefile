@@ -6,7 +6,7 @@ VERSION=0.73
 SNOW_VERSION=0.2.2
 UMAT_VERSION=1.25.2
 UBLO_VERSION=1.4.0
-LAUNCH_VERSION=$(VERSION).03
+LAUNCH_VERSION=$(VERSION).04
 
 build: setup assets.go
 	go build
@@ -56,7 +56,7 @@ all: setup assets.go
 	GOOS=linux go build -o i2pfirefox
 
 release:
-	gothub release -p -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "Launchers" -d "A self-configuring launcher for mixed I2P and clearnet Browsing with Firefox"; true
+	gothub release -p -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "Launchers" -d "A self-configuring launcher for mixed I2P and clearnet Browsing with Firefox"
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox.exe" -f "i2pfirefox.exe"
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-darwin" -f "i2pfirefox-darwin"
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox" -f "i2pfirefox"
