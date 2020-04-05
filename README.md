@@ -45,10 +45,10 @@ which, I need to remember these commands:
 
         /usr/lib/jvm/java-11-openjdk-amd64/bin/java \
             -DloggerFilenameOverride=logs/log-router-@.txt \
-            -Di2p.dir.base=/home/user/i2p \
+            -Di2p.dir.base=$HOME/i2p \
             -Xmx512m \
-            -Djava.library.path=/home/user/i2p:/home/user/i2p/lib \
-            -classpath /home/user/i2p/lib/BOB.jar:/home/user/i2p/lib/addressbook.jar:/home/user/i2p/lib/commons-el.jar:/home/user/i2p/lib/commons-logging.jar:/home/user/i2p/lib/desktopgui.jar:/home/user/i2p/lib/i2p.jar:/home/user/i2p/lib/i2psnark.jar:/home/user/i2p/lib/i2ptunnel.jar:/home/user/i2p/lib/jasper-compiler.jar:/home/user/i2p/lib/jasper-runtime.jar:/home/user/i2p/lib/javax.servlet.jar:/home/user/i2p/lib/jbigi.jar:/home/user/i2p/lib/jetty-continuation.jar:/home/user/i2p/lib/jetty-deploy.jar:/home/user/i2p/lib/jetty-http.jar:/home/user/i2p/lib/jetty-i2p.jar:/home/user/i2p/lib/jetty-io.jar:/home/user/i2p/lib/jetty-java5-threadpool.jar:/home/user/i2p/lib/jetty-rewrite-handler.jar:/home/user/i2p/lib/jetty-security.jar:/home/user/i2p/lib/jetty-servlet.jar:/home/user/i2p/lib/jetty-servlets.jar:/home/user/i2p/lib/jetty-sslengine.jar:/home/user/i2p/lib/jetty-start.jar:/home/user/i2p/lib/jetty-util.jar:/home/user/i2p/lib/jetty-webapp.jar:/home/user/i2p/lib/jetty-xml.jar:/home/user/i2p/lib/jrobin.jar:/home/user/i2p/lib/jstl.jar:/home/user/i2p/lib/mstreaming.jar:/home/user/i2p/lib/org.mortbay.jetty.jar:/home/user/i2p/lib/org.mortbay.jmx.jar:/home/user/i2p/lib/router.jar:/home/user/i2p/lib/routerconsole.jar:/home/user/i2p/lib/sam.jar:/home/user/i2p/lib/standard.jar:/home/user/i2p/lib/streaming.jar:/home/user/i2p/lib/systray.jar:/home/user/i2p/lib/wrapper.jar \
+            -Djava.library.path=$HOME/i2p:$HOME/i2p/lib \
+            -classpath $HOME/i2p/lib/BOB.jar:$HOME/i2p/lib/addressbook.jar:$HOME/i2p/lib/commons-el.jar:$HOME/i2p/lib/commons-logging.jar:$HOME/i2p/lib/desktopgui.jar:$HOME/i2p/lib/i2p.jar:$HOME/i2p/lib/i2psnark.jar:$HOME/i2p/lib/i2ptunnel.jar:$HOME/i2p/lib/jasper-compiler.jar:$HOME/i2p/lib/jasper-runtime.jar:$HOME/i2p/lib/javax.servlet.jar:$HOME/i2p/lib/jbigi.jar:$HOME/i2p/lib/jetty-continuation.jar:$HOME/i2p/lib/jetty-deploy.jar:$HOME/i2p/lib/jetty-http.jar:$HOME/i2p/lib/jetty-i2p.jar:$HOME/i2p/lib/jetty-io.jar:$HOME/i2p/lib/jetty-java5-threadpool.jar:$HOME/i2p/lib/jetty-rewrite-handler.jar:$HOME/i2p/lib/jetty-security.jar:$HOME/i2p/lib/jetty-servlet.jar:$HOME/i2p/lib/jetty-servlets.jar:$HOME/i2p/lib/jetty-sslengine.jar:$HOME/i2p/lib/jetty-start.jar:$HOME/i2p/lib/jetty-util.jar:$HOME/i2p/lib/jetty-webapp.jar:$HOME/i2p/lib/jetty-xml.jar:$HOME/i2p/lib/jrobin.jar:$HOME/i2p/lib/jstl.jar:$HOME/i2p/lib/mstreaming.jar:$HOME/i2p/lib/org.mortbay.jetty.jar:$HOME/i2p/lib/org.mortbay.jmx.jar:$HOME/i2p/lib/router.jar:$HOME/i2p/lib/routerconsole.jar:$HOME/i2p/lib/sam.jar:$HOME/i2p/lib/standard.jar:$HOME/i2p/lib/streaming.jar:$HOME/i2p/lib/systray.jar:$HOME/i2p/lib/wrapper.jar \
             -Dwrapper.key=key \
             -Dwrapper.port=port \
             -Dwrapper.jvm.port.min=31000 \
@@ -62,16 +62,27 @@ which, I need to remember these commands:
             -Dwrapper.cpu.timeout=10 \
             -Dwrapper.jvmid=3 org.tanukisoftware.wrapper.WrapperSimpleApp \
             net.i2p.router.Router
-        /home/user/i2p/i2psvc /home/user/i2p/wrapper.config \
+        $HOME/i2p/i2psvc $HOME/i2p/wrapper.config \
             wrapper.syslog.ident=i2p \
             wrapper.java.command=java \
-            wrapper.pidfile=/home/user/.i2p/i2p.pid \
+            wrapper.pidfile=$HOME/.i2p/i2p.pid \
             wrapper.name=i2p \
             wrapper.displayname=I2P Service \
             wrapper.daemonize=TRUE \
-            wrapper.statusfile=/home/user/.i2p/i2p.status \
-            wrapper.java.statusfile=/home/user/.i2p/i2p.java.status \
-            wrapper.logfile=/home/user/.i2p/wrapper.log
+            wrapper.statusfile=$HOME/.i2p/i2p.status \
+            wrapper.java.statusfile=$HOME/.i2p/i2p.java.status \
+            wrapper.logfile=$HOME/.i2p/wrapper.log
+
+
+This *almost* launches a router on a pure-Go JVM, could be a configuration
+detail or two away from working.
+
+        export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+        JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+        $HOME/go/bin/java \
+            -XuseJavaHome \
+            -classpath $HOME/i2p:$HOME/i2p/lib:$HOME/i2p/lib/BOB.jar:$HOME/i2p/lib/addressbook.jar:$HOME/i2p/lib/commons-el.jar:$HOME/i2p/lib/commons-logging.jar:$HOME/i2p/lib/desktopgui.jar:$HOME/i2p/lib/i2p.jar:$HOME/i2p/lib/i2psnark.jar:$HOME/i2p/lib/i2ptunnel.jar:$HOME/i2p/lib/jasper-compiler.jar:$HOME/i2p/lib/jasper-runtime.jar:$HOME/i2p/lib/javax.servlet.jar:$HOME/i2p/lib/jbigi.jar:$HOME/i2p/lib/jetty-continuation.jar:$HOME/i2p/lib/jetty-deploy.jar:$HOME/i2p/lib/jetty-http.jar:$HOME/i2p/lib/jetty-i2p.jar:$HOME/i2p/lib/jetty-io.jar:$HOME/i2p/lib/jetty-java5-threadpool.jar:$HOME/i2p/lib/jetty-rewrite-handler.jar:$HOME/i2p/lib/jetty-security.jar:$HOME/i2p/lib/jetty-servlet.jar:$HOME/i2p/lib/jetty-servlets.jar:$HOME/i2p/lib/jetty-sslengine.jar:$HOME/i2p/lib/jetty-start.jar:$HOME/i2p/lib/jetty-util.jar:$HOME/i2p/lib/jetty-webapp.jar:$HOME/i2p/lib/jetty-xml.jar:$HOME/i2p/lib/jrobin.jar:$HOME/i2p/lib/jstl.jar:$HOME/i2p/lib/mstreaming.jar:$HOME/i2p/lib/org.mortbay.jetty.jar:$HOME/i2p/lib/org.mortbay.jmx.jar:$HOME/i2p/lib/router.jar:$HOME/i2p/lib/routerconsole.jar:$HOME/i2p/lib/sam.jar:$HOME/i2p/lib/standard.jar:$HOME/i2p/lib/streaming.jar:$HOME/i2p/lib/systray.jar:$HOME/i2p/lib/wrapper.jar \
+            net.i2p.router.Router
 
 The other is to embed a Firefox Portable, possibly one that is enhanced in terms
 of privacy by inheriting non-Branding patches from Tor Browser. How this is to
