@@ -36,11 +36,11 @@ Even More Experimental
 ----------------------
 
 There are two logical places to take this in the medium-close future. One is to
-embed a router inside this, along with some kind of console, probably based on a 
-soon-to-be-usable SWIG binding for i2pd, or a possibly even sooner-to-be-usable 
-Go binding forJava I2P and an embedded runtime and class files? I dunno which 
-one's going to be easier but it turns out it's comparatively easy to talk to 
-Java from Go, much easier than I thought before about 2AM today. Speaking of 
+embed a router inside this, along with some kind of console, probably based on a
+soon-to-be-usable SWIG binding for i2pd, or a possibly even sooner-to-be-usable
+Go binding for Java I2P and an embedded runtime and class files? I dunno which
+one's going to be easier but it turns out it's comparatively easy to talk to
+Java from Go, much easier than I thought before about 2AM today. Speaking of
 which, I need to remember these commands:
 
         /usr/lib/jvm/java-11-openjdk-amd64/bin/java \
