@@ -72,3 +72,17 @@ which, I need to remember these commands:
             wrapper.statusfile=/home/user/.i2p/i2p.status \
             wrapper.java.statusfile=/home/user/.i2p/i2p.java.status \
             wrapper.logfile=/home/user/.i2p/wrapper.log
+
+The other is to embed a Firefox Portable, possibly one that is enhanced in terms
+of privacy by inheriting non-Branding patches from Tor Browser. How this is to
+be achieved remains to be seen, but extracting Tor from their own build system
+is not sustainable or advisable, this may be better.
+
+Reproducibility?
+----------------
+
+What definitions of reproducibility this satisfies remains to be seen. I will
+think about it later, but I *think* that it should be reproducible and since
+the resources it embeds should also be reproducible, then it should be possible
+to build this reproducibly.
+
