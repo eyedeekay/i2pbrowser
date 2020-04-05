@@ -62,4 +62,13 @@ which, I need to remember these commands:
             -Dwrapper.cpu.timeout=10 \
             -Dwrapper.jvmid=3 org.tanukisoftware.wrapper.WrapperSimpleApp \
             net.i2p.router.Router
-        /home/user/i2p/i2psvc /home/user/i2p/wrapper.config wrapper.syslog.ident=i2p wrapper.java.command=java wrapper.pidfile=/home/user/.i2p/i2p.pid wrapper.name=i2p wrapper.displayname=I2P Service wrapper.daemonize=TRUE wrapper.statusfile=/home/user/.i2p/i2p.status wrapper.java.statusfile=/home/user/.i2p/i2p.java.status wrapper.logfile=/home/user/.i2p/wrapper.log
+        /home/user/i2p/i2psvc /home/user/i2p/wrapper.config \
+            wrapper.syslog.ident=i2p \
+            wrapper.java.command=java \
+            wrapper.pidfile=/home/user/.i2p/i2p.pid \
+            wrapper.name=i2p \
+            wrapper.displayname=I2P Service \
+            wrapper.daemonize=TRUE \
+            wrapper.statusfile=/home/user/.i2p/i2p.status \
+            wrapper.java.statusfile=/home/user/.i2p/i2p.java.status \
+            wrapper.logfile=/home/user/.i2p/wrapper.log
