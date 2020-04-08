@@ -20,9 +20,9 @@ clean:
 	rm -rf ifox i2pfirefox* assets.go i2pfox i2p-fox
 	gofmt -w -s *.go
 
-setup: i2ppb snowflake ublock umatrix
+setup: i2ppb ublock
 
-setup-variant: i2ppb ublock
+setup-variant: i2ppb snowflake ublock umatrix
 
 i2ppb: ifox/i2ppb@eyedeekay.github.io.xpi 
 snowflake: ifox/snowflake@torproject.org.xpi 
