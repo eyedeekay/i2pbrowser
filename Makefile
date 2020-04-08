@@ -17,7 +17,7 @@ assets.go:
 	go run -tags generate gen.go
 
 clean:
-	rm -rf ifox i2pfirefox* assets.go i2pfox i2p-fox
+	rm -rf ifox i2pfox
 	gofmt -w -s *.go
 
 setup: i2ppb ublock
