@@ -6,7 +6,7 @@ VERSION=0.73
 SNOW_VERSION=0.2.2
 UMAT_VERSION=1.25.2
 UBLO_VERSION=1.4.0
-LAUNCH_VERSION=$(VERSION).05
+LAUNCH_VERSION=$(VERSION).06
 
 build: setup assets.go
 	go build
@@ -34,8 +34,7 @@ setup-variant:
 	rm -rf ifox i2pfox
 	gofmt -w -s main.go pure.go variant.go gen.go
 	@echo CLEANED
-	make i2ppb ublock
-	
+	make i2ppb snowflake ublock umatrix
 
 i2ppb: ifox/i2ppb@eyedeekay.github.io.xpi 
 snowflake: ifox/snowflake@torproject.org.xpi 
