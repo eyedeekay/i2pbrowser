@@ -34,7 +34,8 @@ setup-variant:
 	rm -rf ifox i2pfox
 	gofmt -w -s main.go pure.go variant.go gen.go
 	@echo CLEANED
-	make i2ppb snowflake ublock umatrix
+	make i2ppb ublock
+	
 
 i2ppb: ifox/i2ppb@eyedeekay.github.io.xpi 
 snowflake: ifox/snowflake@torproject.org.xpi 
