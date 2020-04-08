@@ -6,7 +6,7 @@ VERSION=0.73
 SNOW_VERSION=0.2.2
 UMAT_VERSION=1.25.2
 UBLO_VERSION=1.4.0
-LAUNCH_VERSION=$(VERSION).04
+LAUNCH_VERSION=$(VERSION).05
 
 build: setup assets.go
 	go build
@@ -21,6 +21,8 @@ clean:
 	gofmt -w -s *.go
 
 setup: i2ppb snowflake ublock umatrix
+
+setup-variant: i2ppb ublock
 
 i2ppb: ifox/i2ppb@eyedeekay.github.io.xpi 
 snowflake: ifox/snowflake@torproject.org.xpi 
@@ -50,16 +52,28 @@ sums: setup
 	sha256sum ifox/uBlock0@raymondhill.net.xpi
 	sha256sum ifox/uMatrix@raymondhill.net.xpi
 
-all: setup assets.go
+all: pure variant
+
+pure: clean setup assets.go
 	GOOS=windows go build -o i2pfirefox.exe
 	GOOS=darwin go build -o i2pfirefox-darwin
 	GOOS=linux go build -o i2pfirefox
+
+variant: clean setup-variant assets.go
+	GOOS=windows go build -tags variant -o i2pfirefox-variant.exe
+	GOOS=darwin go build -tags variant -o i2pfirefox-variant-darwin
+	GOOS=linux go build -tags variant -o i2pfirefox-variant
 
 release:
 	gothub release -p -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "Launchers" -d "A self-configuring launcher for mixed I2P and clearnet Browsing with Firefox"
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox.exe" -f "i2pfirefox.exe"
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-darwin" -f "i2pfirefox-darwin"
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox" -f "i2pfirefox"
+
+release-variant:
+	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-variant.exe" -f "i2pfirefox-variant.exe"
+	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-variant-darwin" -f "i2pfirefox-variant-darwin"
+	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-variant" -f "i2pfirefox-variant"
 
 linux-release:
 	gothub release -p -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "Launchers" -d "A self-configuring launcher for mixed I2P and clearnet Browsing with Firefox"; true

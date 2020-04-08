@@ -86,7 +86,7 @@ detail or two away from working.
 Important thing for building apps that use the Go bindings to libjvm
 
         export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/
-
+        export LD_LIBRARY_PATH=/usr/lib/jvm/java-11-openjdk-amd64/lib/server/
 
 The other is to embed a Firefox Portable, possibly one that is enhanced in terms
 of privacy by inheriting non-Branding patches from Tor Browser. How this is to

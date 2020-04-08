@@ -1,7 +1,11 @@
 github.com/eyedeekay/checki2cp v0.0.0-20200403213308-750ce7e6d81f h1:rpkO9pKHoNxoUAH2dY9gtIRt+vDCS3t2VUq5V7ZalXA=
 github.com/eyedeekay/checki2cp v0.0.0-20200403213308-750ce7e6d81f/go.mod h1:ZilEsKkjp1K0e9qfUUdrHnz8teb1LU70L8JQzNSQmO8=
+github.com/eyedeekay/checki2cp v0.0.12 h1:ytAlEx0w928H6pE4IPDVuRsRQjJ30wUjhR0sLIGlOH0=
+github.com/eyedeekay/checki2cp v0.0.12/go.mod h1:ZilEsKkjp1K0e9qfUUdrHnz8teb1LU70L8JQzNSQmO8=
 github.com/eyedeekay/go-fpw v0.0.0-20200403201858-3d24733073ff h1:nmfiBxYeXYnUUB7sYoez7VT7mB99hFeHeZtXE69ot9A=
 github.com/eyedeekay/go-fpw v0.0.0-20200403201858-3d24733073ff/go.mod h1:F4d0cXDXTK6ZsAnxmATan3VyDV4k9P9ciCGRKt/fVik=
+github.com/eyedeekay/go-fpw v0.0.0-20200404005604-8ccf7dc81580 h1:Eo210WM4t+DLJ5rBmj1fnUAuCEM614zIvVUO7RIeTRw=
+github.com/eyedeekay/go-fpw v0.0.0-20200404005604-8ccf7dc81580/go.mod h1:RyCx7KuH+5ryvIpUF7SpxiChLtjeuPbVFCIzf8shIFc=
 github.com/eyedeekay/go-i2cp v0.0.0-20190716135428-6d41bed718b0 h1:rnn9OlD/3+tATEZNuiMR1C84O5CX8bZL2qqgttprKrw=
 github.com/eyedeekay/go-i2cp v0.0.0-20190716135428-6d41bed718b0/go.mod h1:+P0fIhkqIYjo7exMJRTlSteRMbRyHbiBiKw+YlPWk+c=
 github.com/zserge/lorca v0.1.9 h1:vbDdkqdp2/rmeg8GlyCewY2X8Z+b0s7BqWyIQL/gakc=
