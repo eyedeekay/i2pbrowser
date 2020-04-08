@@ -17,12 +17,24 @@ assets.go:
 	go run -tags generate gen.go
 
 clean:
+	@echo CLEANING
 	rm -rf ifox i2pfox
-	gofmt -w -s *.go
+	gofmt -w -s main.go pure.go variant.go gen.go
+	@echo CLEANED
 
-setup: i2ppb ublock
+setup: 
+	@echo CLEANING
+	rm -rf ifox i2pfox
+	gofmt -w -s main.go pure.go variant.go gen.go
+	@echo CLEANED
+	make i2ppb ublock
 
-setup-variant: i2ppb snowflake ublock umatrix
+setup-variant: 
+	@echo CLEANING
+	rm -rf ifox i2pfox
+	gofmt -w -s main.go pure.go variant.go gen.go
+	@echo CLEANED
+	make i2ppb snowflake ublock umatrix
 
 i2ppb: ifox/i2ppb@eyedeekay.github.io.xpi 
 snowflake: ifox/snowflake@torproject.org.xpi 
@@ -33,18 +45,18 @@ ifox:
 	mkdir -p ifox
 
 ifox/i2ppb@eyedeekay.github.io.xpi: ifox
-	wget -c -O ifox/i2ppb@eyedeekay.github.io.xpi https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/$(VERSION)/i2ppb@eyedeekay.github.io.xpi
+	wget -nv -c -O ifox/i2ppb@eyedeekay.github.io.xpi https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/$(VERSION)/i2ppb@eyedeekay.github.io.xpi
 
 ifox/snowflake@torproject.org.xpi: ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi
 
 ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi: ifox
-	wget -c -O 'ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi' https://addons.mozilla.org/firefox/downloads/file/3519836/snowflake-0.2.2-fx.xpi
+	wget -nv -c -O 'ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi' https://addons.mozilla.org/firefox/downloads/file/3519836/snowflake-0.2.2-fx.xpi
 
 ifox/uBlock0@raymondhill.net.xpi: ifox
-	wget -c -O ifox/uBlock0@raymondhill.net.xpi https://addons.mozilla.org/firefox/downloads/file/3521827/ublock_origin-$(UBLO_VERSION)-an+fx.xpi
+	wget -nv -c -O ifox/uBlock0@raymondhill.net.xpi https://addons.mozilla.org/firefox/downloads/file/3521827/ublock_origin-$(UBLO_VERSION)-an+fx.xpi
 
 ifox/uMatrix@raymondhill.net.xpi: ifox
-	wget -c -O ifox/uMatrix@raymondhill.net.xpi https://addons.mozilla.org/firefox/downloads/file/3396815/umatrix-$(UMAT_VERSION)-an+fx.xpi
+	wget -nv -c -O ifox/uMatrix@raymondhill.net.xpi https://addons.mozilla.org/firefox/downloads/file/3396815/umatrix-$(UMAT_VERSION)-an+fx.xpi
 
 sums: setup
 	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi
