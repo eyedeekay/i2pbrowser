@@ -28,6 +28,7 @@ setup:
 	gofmt -w -s main.go pure.go variant.go gen.go
 	@echo CLEANED
 	make i2ppb ublock
+	go run -tags generate gen.go
 
 setup-variant: 
 	@echo CLEANING
@@ -35,6 +36,7 @@ setup-variant:
 	gofmt -w -s main.go pure.go variant.go gen.go
 	@echo CLEANED
 	make i2ppb snowflake ublock umatrix
+	go run -tags generate gen.go
 
 i2ppb: ifox/i2ppb@eyedeekay.github.io.xpi 
 snowflake: ifox/snowflake@torproject.org.xpi 
