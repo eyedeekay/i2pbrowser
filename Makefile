@@ -6,6 +6,7 @@ VERSION=0.73
 SNOW_VERSION=0.2.2
 UMAT_VERSION=1.25.2
 UBLO_VERSION=1.4.0
+NOSS_VERSION=11.0.23
 LAUNCH_VERSION=$(VERSION).07
 
 build: setup assets.go
@@ -27,7 +28,7 @@ setup:
 	rm -rf ifox i2pfox
 	gofmt -w -s main.go pure.go variant.go gen.go
 	@echo CLEANED
-	make i2ppb ublock
+	make i2ppb ublock noscript
 	go run -tags generate gen.go
 
 setup-variant: 
@@ -38,6 +39,9 @@ setup-variant:
 	make i2ppb snowflake ublock umatrix
 	go run -tags generate gen.go
 
+exts: noscript i2ppb snowflake ublock umatrix
+
+noscript: ifox/noscript@noscript.org
 i2ppb: ifox/i2ppb@eyedeekay.github.io.xpi 
 snowflake: ifox/snowflake@torproject.org.xpi 
 ublock: ifox/uBlock0@raymondhill.net.xpi 
@@ -60,11 +64,17 @@ ifox/uBlock0@raymondhill.net.xpi: ifox
 ifox/uMatrix@raymondhill.net.xpi: ifox
 	wget -nv -c -O ifox/uMatrix@raymondhill.net.xpi https://addons.mozilla.org/firefox/downloads/file/3396815/umatrix-$(UMAT_VERSION)-an+fx.xpi
 
-sums: setup
+ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi:
+	wget -nv -c -O 'ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi' https://addons.mozilla.org/firefox/downloads/file/3534184/noscript_security_suite-$(NOSS_VERSION)-an+fx.xpi
+
+ifox/noscript@noscript.org: ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi
+
+sums: exts
 	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi
 	sha256sum 'ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi'
 	sha256sum ifox/uBlock0@raymondhill.net.xpi
 	sha256sum ifox/uMatrix@raymondhill.net.xpi
+	sha256sum 'ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi'
 
 all: pure variant
 
