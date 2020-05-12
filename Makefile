@@ -7,7 +7,8 @@ SNOW_VERSION=0.2.2
 UMAT_VERSION=1.25.2
 UBLO_VERSION=1.4.0
 NOSS_VERSION=11.0.23
-LAUNCH_VERSION=$(VERSION).08
+ZERO_VERSION=v1.16
+LAUNCH_VERSION=$(VERSION).09
 
 build: setup assets.go
 	go build
@@ -99,6 +100,15 @@ release-variant:
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-variant-darwin" -f "i2pfirefox-variant-darwin"
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-variant" -f "i2pfirefox-variant"
 
-linux-release:
-	gothub release -p -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "Launchers" -d "A self-configuring launcher for mixed I2P and clearnet Browsing with Firefox"; true
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox" -f "i2pfirefox"
+i2p-zero:
+	git clone https://github.com/i2p-zero/i2p-zero.git; \
+		cd i2p-zero && \
+		git fetch --all --tags && \
+		git checkout $(ZERO_VERSION)
+
+zero-build: i2p-zero
+	cd i2p-zero && \
+		./bin/build-all-and-zip.sh
+
+zero-copy:
+	cp -rv i2p-zero ifox
