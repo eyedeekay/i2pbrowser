@@ -63,6 +63,9 @@ func writeProfile(FS *fs) {
 }
 
 func main() {
+	if err := launchi2pd(); err != nil {
+		//
+	}
 	if ok, err := checki2p.ConditionallyLaunchI2P(); ok {
 		if err != nil {
 			log.Fatal(err)
