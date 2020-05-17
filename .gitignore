@@ -10,3 +10,9 @@ i2pfirefox-variant-darwin
 firefox/*
 i2p-zero/*
 *.tar.bz2
+i2pd.conf
+i2pd/
+i2pd.tar.gz
+lib/
+lib.tar.gz
+tunnels.conf
