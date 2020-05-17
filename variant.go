@@ -26,3 +26,5 @@ user_pref("browser.display.use_document_fonts", 0);                 // [SET] [SA
 user_pref("browser.download.forbid_open_with", true);               // whether to allow the 'open with' option when downloading a file
 user_pref("browser.library.activity-stream.enabled", false);        // whether to enable Activity Stream recent Highlights in the Library
 `
+
+var EXTENSIONPREFS = `{}`

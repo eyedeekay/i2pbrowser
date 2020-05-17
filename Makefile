@@ -10,13 +10,15 @@ NOSS_VERSION=11.0.23
 ZERO_VERSION=v1.16
 LAUNCH_VERSION=$(VERSION).09
 
+GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
+
 build: setup assets.go
-	go build
+	go build $(GO_COMPILER_OPTS)
 
 assets: clean setup assets.go
 
 assets.go:
-	go run -tags generate gen.go
+	go run $(GO_COMPILER_OPTS) -tags generate gen.go
 
 clean:
 	@echo CLEANING
@@ -80,14 +82,14 @@ sums: exts
 all: pure variant
 
 pure: clean setup assets.go
-	GOOS=windows go build -o i2pfirefox.exe
-	GOOS=darwin go build -o i2pfirefox-darwin
-	GOOS=linux go build -o i2pfirefox
+	GOOS=windows go build $(GO_COMPILER_OPTS) -o i2pfirefox.exe
+	#GOOS=darwin go build $(GO_COMPILER_OPTS) -o i2pfirefox-darwin
+	GOOS=linux go build $(GO_COMPILER_OPTS) -o i2pfirefox
 
 variant: clean setup-variant assets.go
-	GOOS=windows go build -tags variant -o i2pfirefox-variant.exe
-	GOOS=darwin go build -tags variant -o i2pfirefox-variant-darwin
-	GOOS=linux go build -tags variant -o i2pfirefox-variant
+	GOOS=windows go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant.exe
+	#GOOS=darwin go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant-darwin
+	GOOS=linux go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant
 
 release:
 	gothub release -p -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "Launchers" -d "A self-configuring launcher for mixed I2P and clearnet Browsing with Firefox"

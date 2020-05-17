@@ -36,3 +36,5 @@ user_pref("network.proxy.socks_port", 4444);                        // [SET] 444
 user_pref("network.proxy.share_proxy_settings", true);              // [SET] [SAFE=true] [PRIV=true] does not actually apply to http, but leave it set anyway so that we preserve the SOCKS option
 user_pref("network.proxy.socks_remote_dns", true);                  // [SET] [SAFE=true] [PRIV=true]
 `
+
+var EXTENSIONPREFS = `{}`

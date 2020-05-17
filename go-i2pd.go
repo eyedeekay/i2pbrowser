@@ -2,11 +2,13 @@ package main
 
 import (
 	"github.com/eyedeekay/checki2cp/i2pdbundle"
-	
-	"path/filepath"
+	//	"github.com/eyedeekay/checki2cp"
+
+	"flag"
 	"io/ioutil"
 	"log"
-	"flag"
+	"os"
+	"path/filepath"
 )
 
 var configFile = `## Configuration file for a typical i2pd user
@@ -56,6 +58,10 @@ address = 127.0.0.1
 port = 7656
 `
 
+var i2cpConf = `i2cp.tcp.host=127.0.0.1
+i2cp.tcp.port=7654
+`
+
 // WriteConfOptions generates a default config file for the bundle
 func WriteConfOptions(targetdir string) error {
 	if i2pd.FileOK(filepath.Join(filepath.Dir(targetdir), "i2pd.conf")) != nil {
@@ -63,6 +69,21 @@ func WriteConfOptions(targetdir string) error {
 		if err != nil {
 			return err
 		}
+	}
+	return nil
+}
+
+func WriteI2CPConf() error {
+	dir, err := i2pd.UnpackI2PdDir()
+	if err != nil {
+		return err
+	}
+	os.Setenv("I2CP_HOME", dir)
+	os.Setenv("GO_I2CP_CONF", "/.i2cp.conf")
+	home := os.Getenv("I2CP_HOME")
+	conf := os.Getenv("GO_I2CP_CONF")
+	if err := ioutil.WriteFile(filepath.Join(home, conf), []byte(i2cpConf), 0644); err != nil {
+		return err
 	}
 	return nil
 }
@@ -81,7 +102,7 @@ func launchi2pd() error {
 	}
 	if !*boolPtr {
 		//	if cmd, err := i2pd.LaunchI2Pd(); err != nil {
-		if _, err := i2pd.LaunchI2Pd(); err != nil {
+		if _, err := i2pd.LaunchI2PdConditional(false, true, false); err != nil {
 			return nil
 		}
 	} else {

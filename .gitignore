@@ -16,3 +16,4 @@ i2pd.tar.gz
 lib/
 lib.tar.gz
 tunnels.conf
+.i2cp.conf
