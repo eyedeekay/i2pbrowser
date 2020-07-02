@@ -2,15 +2,17 @@
 
 package main
 
+var NOM = "pure"
+
 var EXTENSIONS = []string{
 	"i2ppb@eyedeekay.github.io.xpi",
 	"uBlock0@raymondhill.net.xpi",
-	"{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi",
+	"uMatrix@raymondhill.net.xpi",
 }
 var EXTENSIONHASHES = []string{
-	"bca6f385637c76445775af6271f8e9621966283f2f648cef9db9c635b6662f6d",
+	"cfe099042996c32e7bebc62d89afe5ce5b7aef16a9f1da3931a75052fb3f6849",
 	"997aac00064665641298047534c9392492ef09f0cbf177b6a30d4fa288081579",
-	"3f046da13f487392f34858f8a5e2fc24d7d87ff19e98a3a7907f59baff8a3705",
+	"991f0fa5c64172b8a2bc0a010af60743eba1c18078c490348e1c6631882cbfc7",
 }
 var ARGS = []string{
 	/*"--example-arg",*/

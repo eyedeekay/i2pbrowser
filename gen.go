@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/zserge/lorca"
 )
@@ -37,7 +38,7 @@ var umatrix = []string{
 }
 var ublock = []string{
 	"uBlock0@raymondhill.net.xpi",
-	"https://addons.mozilla.org/firefox/downloads/file/3519836/",
+	"https://addons.mozilla.org/firefox/downloads/file/3521827/",
 	UBLO_VERSION,
 	"ublock",
 }
@@ -49,9 +50,9 @@ func fetch() error {
 	if err := get(snowflake); err != nil {
 		return err
 	}
-	if err := get(noscript); err != nil {
-		return err
-	}
+	//	if err := get(noscript); err != nil {
+	//		return err
+	//	}
 	if err := get(umatrix); err != nil {
 		return err
 	}
@@ -61,7 +62,15 @@ func fetch() error {
 	return nil
 }
 
-func download(filepath string, url string) error {
+func determinate(path string) error {
+	t := time.Date(1970, time.January, 1, 1, 0, 0, 0, time.UTC)
+	if err := os.Chtimes("ifox/"+path, t, t); err != nil {
+		return err
+	}
+	return nil
+}
+
+func download(path string, url string) error {
 	os.MkdirAll("ifox", 0755)
 	// Get the data
 	resp, err := http.Get(url)
@@ -70,7 +79,7 @@ func download(filepath string, url string) error {
 	}
 	defer resp.Body.Close()
 	// Create the file
-	out, err := os.Create("ifox/" + filepath)
+	out, err := os.Create("ifox/" + path)
 	if err != nil {
 		return err
 	}
@@ -82,9 +91,19 @@ func download(filepath string, url string) error {
 
 func get(extension []string) error {
 	if len(extension) == 3 {
-		return download(extension[0], extension[1]+extension[2])
+		path := extension[1] + "/" + extension[2]
+		err := download(extension[0], path)
+		if err != nil {
+			return err
+		}
+		return determinate(extension[0])
 	} else if len(extension) == 4 {
-		return download(extension[0], extension[1]+extension[3]+extension[2]+"-an+fx.xpi")
+		path := extension[1] + extension[3] + extension[2] + "-an+fx.xpi"
+		err := download(extension[0], path)
+		if err != nil {
+			return err
+		}
+		return determinate(extension[0])
 	}
 	return fmt.Errorf("Error fetching extension for build.")
 }

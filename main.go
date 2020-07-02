@@ -1,4 +1,4 @@
-//go:generate go run -tags generate gen.go
+//go:generate go run -tags generate gen.go extensions.go
 
 package main
 
@@ -21,15 +21,15 @@ func userFind() string {
 	}
 	if un, err := os.UserHomeDir(); err == nil {
 		os.MkdirAll(filepath.Join(un, "i2p"), 0755)
-		os.MkdirAll(filepath.Join(un, "i2p/firefox-profiles"), 0755)
-		os.MkdirAll(filepath.Join(un, "i2p/rhizome"), 0755)
+		os.MkdirAll(filepath.Join(un, "i2p", "firefox-profiles", NOM), 0755)
+		os.MkdirAll(filepath.Join(un, "i2p", "rhizome"), 0755)
 		return un
 	}
 	return ""
 }
 
-var userdir = filepath.Join(userFind(), "/i2p/firefox-profiles")
-var gingerdir = filepath.Join(userFind(), "/i2p/rhizome")
+var userdir = filepath.Join(userFind(), "i2p", "firefox-profiles", NOM)
+var gingerdir = filepath.Join(userFind(), "i2p", "rhizome")
 
 func writeExtension(val os.FileInfo, system *fs) bool {
 	var firstrun = false
@@ -116,17 +116,17 @@ func main() {
 	}
 	if firstrun {
 		FIREFOX, ERROR := SecureExtendedFirefox(userdir, false, EXTENSIONS, EXTENSIONHASHES, ARGS...)
-		defer FIREFOX.Close()
 		if ERROR != nil {
 			log.Fatal(ERROR)
 		}
+		defer FIREFOX.Close()
 		<-FIREFOX.Done()
 	} else {
 		FIREFOX, ERROR := BasicFirefox(userdir, false, ARGS...)
-		defer FIREFOX.Close()
 		if ERROR != nil {
 			log.Fatal(ERROR)
 		}
+		defer FIREFOX.Close()
 		<-FIREFOX.Done()
 	}
 }

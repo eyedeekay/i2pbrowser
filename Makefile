@@ -12,13 +12,13 @@ LAUNCH_VERSION=$(VERSION).09
 
 GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
 
-build: setup assets.go
+build: setup gen
 	go build $(GO_COMPILER_OPTS)
 
 assets: clean setup assets.go
 
-assets.go:
-	go run $(GO_COMPILER_OPTS) -tags generate gen.go
+gen:
+	go run $(GO_COMPILER_OPTS) -tags generate gen.go extensions.go
 
 clean:
 	@echo CLEANING
@@ -66,12 +66,16 @@ ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi:
 
 ifox/noscript@noscript.org: ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi
 
-sums: exts
+test:
+	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi
+	sha256sum $(HOME)/i2p/firefox-profiles/pure/extensions/i2ppb@eyedeekay.github.io.xpi
+
+sum: exts
 	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi
 	sha256sum 'ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi'
 	sha256sum ifox/uBlock0@raymondhill.net.xpi
 	sha256sum ifox/uMatrix@raymondhill.net.xpi
-	sha256sum 'ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi'
+	#sha256sum 'ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi'
 
 all: pure variant
 
