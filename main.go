@@ -10,8 +10,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/eyedeekay/checki2cp"
 	. "github.com/eyedeekay/GingerShrew/import"
+	"github.com/eyedeekay/checki2cp"
 	. "github.com/eyedeekay/go-fpw"
 )
 
@@ -90,7 +90,7 @@ func main() {
 	if err := UnpackTBZ(gingerdir); err != nil {
 		log.Fatal("Error unpacking embedded browser")
 	} else {
-		os.Setenv("FIREFOX_BIN", filepath.Join(gingerdir,"gingershrew","gingershrew"))
+		os.Setenv("FIREFOX_BIN", filepath.Join(gingerdir, "gingershrew", "gingershrew"))
 	}
 	if err := WriteI2CPConf(); err != nil {
 		if ok, err := checki2p.ConditionallyLaunchI2P(); ok {
