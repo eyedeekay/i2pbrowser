@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 
 	"github.com/eyedeekay/checki2cp"
+	. "github.com/eyedeekay/GingerShrew/import"
 	. "github.com/eyedeekay/go-fpw"
 )
 
@@ -20,12 +21,15 @@ func userFind() string {
 	}
 	if un, err := os.UserHomeDir(); err == nil {
 		os.MkdirAll(filepath.Join(un, "i2p"), 0755)
+		os.MkdirAll(filepath.Join(un, "i2p/firefox-profiles"), 0755)
+		os.MkdirAll(filepath.Join(un, "i2p/rhizome"), 0755)
 		return un
 	}
 	return ""
 }
 
 var userdir = filepath.Join(userFind(), "/i2p/firefox-profiles")
+var gingerdir = filepath.Join(userFind(), "/i2p/rhizome")
 
 func writeExtension(val os.FileInfo, system *fs) bool {
 	var firstrun = false
@@ -83,6 +87,11 @@ func writeProfile(FS *fs) bool {
 }
 
 func main() {
+	if err := UnpackTBZ(gingerdir); err != nil {
+		log.Fatal("Error unpacking embedded browser")
+	} else {
+		os.Setenv("FIREFOX_BIN", filepath.Join(gingerdir,"gingershrew","gingershrew"))
+	}
 	if err := WriteI2CPConf(); err != nil {
 		if ok, err := checki2p.ConditionallyLaunchI2P(); ok {
 			if err != nil {
