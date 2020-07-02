@@ -25,6 +25,7 @@ user_pref("privacy.resistFingerprinting.letterboxing", true);       // [SET] [!P
 user_pref("browser.display.use_document_fonts", 0);                 // [SET] [SAFE=1] [!PRIV=0] whether to allow websites to use fonts they specify - 0=no, 1=yes - setting this to 0 will uglify many websites - value can be easily flipped with the Toggle Fonts add-on
 user_pref("browser.download.forbid_open_with", true);               // whether to allow the 'open with' option when downloading a file
 user_pref("browser.library.activity-stream.enabled", false);        // whether to enable Activity Stream recent Highlights in the Library
+user_pref("network.proxy.allow_hijacking_localhost", true)			// [SET] [SAFE=true] [PRIV=true] Required for blackholing localhost requests when using anonymous proxies.
 `
 
 var EXTENSIONPREFS = `{}`

@@ -31,7 +31,7 @@ setup:
 	rm -rf ifox i2pfox
 	gofmt -w -s main.go pure.go variant.go gen.go
 	@echo CLEANED
-	make i2ppb ublock noscript
+	make exts
 	go run -tags generate gen.go
 
 setup-variant: 
@@ -39,7 +39,7 @@ setup-variant:
 	rm -rf ifox i2pfox
 	gofmt -w -s main.go pure.go variant.go gen.go
 	@echo CLEANED
-	make i2ppb snowflake ublock umatrix
+	make exts
 	go run -tags generate gen.go
 
 exts: noscript i2ppb snowflake ublock umatrix
@@ -51,24 +51,18 @@ ublock: ifox/uBlock0@raymondhill.net.xpi
 umatrix: ifox/uMatrix@raymondhill.net.xpi
 
 ifox:
-	mkdir -p ifox
 
 ifox/i2ppb@eyedeekay.github.io.xpi: ifox
-	wget -nv -c -O ifox/i2ppb@eyedeekay.github.io.xpi https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/$(VERSION)/i2ppb@eyedeekay.github.io.xpi
 
 ifox/snowflake@torproject.org.xpi: ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi
 
 ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi: ifox
-	wget -nv -c -O 'ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi' https://addons.mozilla.org/firefox/downloads/file/3519836/snowflake-0.2.2-fx.xpi
 
 ifox/uBlock0@raymondhill.net.xpi: ifox
-	wget -nv -c -O ifox/uBlock0@raymondhill.net.xpi https://addons.mozilla.org/firefox/downloads/file/3521827/ublock_origin-$(UBLO_VERSION)-an+fx.xpi
 
 ifox/uMatrix@raymondhill.net.xpi: ifox
-	wget -nv -c -O ifox/uMatrix@raymondhill.net.xpi https://addons.mozilla.org/firefox/downloads/file/3396815/umatrix-$(UMAT_VERSION)-an+fx.xpi
 
 ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi:
-	wget -nv -c -O 'ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi' https://addons.mozilla.org/firefox/downloads/file/3534184/noscript_security_suite-$(NOSS_VERSION)-an+fx.xpi
 
 ifox/noscript@noscript.org: ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi
 

@@ -35,6 +35,7 @@ user_pref("network.proxy.socks", "127.0.0.1");                      // [SET] 127
 user_pref("network.proxy.socks_port", 4444);                        // [SET] 4444
 user_pref("network.proxy.share_proxy_settings", true);              // [SET] [SAFE=true] [PRIV=true] does not actually apply to http, but leave it set anyway so that we preserve the SOCKS option
 user_pref("network.proxy.socks_remote_dns", true);                  // [SET] [SAFE=true] [PRIV=true]
+user_pref("network.proxy.allow_hijacking_localhost", true)			// [SET] [SAFE=true] [PRIV=true] Required for blackholing localhost requests when using anonymous proxies.
 `
 
 var EXTENSIONPREFS = `{}`
