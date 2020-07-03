@@ -21,54 +21,7 @@ gen:
 	go run $(GO_COMPILER_OPTS) -tags generate gen.go extensions.go
 
 clean:
-	@echo CLEANING
-	rm -rf ifox i2pfox
 	gofmt -w -s main.go pure.go variant.go gen.go
-	@echo CLEANED
-
-setup: 
-	@echo CLEANING
-	rm -rf ifox i2pfox
-	gofmt -w -s main.go pure.go variant.go gen.go
-	@echo CLEANED
-	make exts
-	go run -tags generate gen.go
-
-setup-variant: 
-	@echo CLEANING
-	rm -rf ifox i2pfox
-	gofmt -w -s main.go pure.go variant.go gen.go
-	@echo CLEANED
-	make exts
-	go run -tags generate gen.go
-
-exts: noscript i2ppb snowflake ublock umatrix
-
-noscript: ifox/noscript@noscript.org
-i2ppb: ifox/i2ppb@eyedeekay.github.io.xpi 
-snowflake: ifox/snowflake@torproject.org.xpi 
-ublock: ifox/uBlock0@raymondhill.net.xpi 
-umatrix: ifox/uMatrix@raymondhill.net.xpi
-
-ifox:
-
-ifox/i2ppb@eyedeekay.github.io.xpi: ifox
-
-ifox/snowflake@torproject.org.xpi: ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi
-
-ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi: ifox
-
-ifox/uBlock0@raymondhill.net.xpi: ifox
-
-ifox/uMatrix@raymondhill.net.xpi: ifox
-
-ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi:
-
-ifox/noscript@noscript.org: ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi
-
-test:
-	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi
-	sha256sum $(HOME)/i2p/firefox-profiles/pure/extensions/i2ppb@eyedeekay.github.io.xpi
 
 sum: exts
 	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi

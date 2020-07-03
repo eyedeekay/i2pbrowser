@@ -3,8 +3,10 @@
 package main
 
 import (
+	"crypto/sha256"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -12,6 +14,38 @@ import (
 
 	"github.com/zserge/lorca"
 )
+
+var pureExtensions = `// +build !variant
+
+package main
+
+var EXTENSIONS = []string{
+	"i2ppb@eyedeekay.github.io.xpi",
+	"uBlock0@raymondhill.net.xpi",
+	"uMatrix@raymondhill.net.xpi",
+}
+var EXTENSIONHASHES = []string{
+`
+
+var variantExtensions = `// +build variant
+
+package main
+
+var NOM = "variant"
+
+var EXTENSIONS = []string{
+	"i2ppb@eyedeekay.github.io.xpi",
+	"{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi",
+	"uBlock0@raymondhill.net.xpi",
+	"uMatrix@raymondhill.net.xpi",
+}
+var EXTENSIONHASHES = []string{
+`
+
+var i2ppbHash = ""
+var snowflakeHash = ""
+var ublockHash = ""
+var umatrixHash = ""
 
 var i2ppb = []string{
 	"i2ppb@eyedeekay.github.io.xpi",
@@ -43,21 +77,81 @@ var ublock = []string{
 	"ublock",
 }
 
+func variantFile() error {
+	value := variantExtensions
+	value += "\t\"" + i2ppbHash + "\",\n"
+	value += "\t\"" + snowflakeHash + "\",\n"
+	value += "\t\"" + ublockHash + "\",\n"
+	value += "\t\"" + umatrixHash + "\",\n"
+	value += "}\n"
+	return ioutil.WriteFile("variantextensions.go", []byte(value), 0644)
+}
+
+func pureFile() error {
+	value := pureExtensions
+	value += "\t\"" + i2ppbHash + "\",\n"
+	value += "\t\"" + ublockHash + "\",\n"
+	value += "\t\"" + umatrixHash + "\",\n"
+	value += "}\n"
+	return ioutil.WriteFile("pureextensions.go", []byte(value), 0644)
+}
+
+func sha256sum(path string) (string, error) {
+	bytes, err := ioutil.ReadFile("ifox/" + path)
+	if err != nil {
+		return "", err
+	}
+	sum := sha256.Sum256(bytes)
+	var s []byte
+	for _, c := range sum {
+		s = append(s,c)
+	}
+	log.Println(fmt.Sprintf("%x", sum))
+	return fmt.Sprintf("%x", sum), nil
+}
+
 func fetch() error {
 	if err := get(i2ppb); err != nil {
 		return err
 	}
+	if tmp, err := sha256sum(i2ppb[0]); err != nil {
+		return err
+	} else {
+		i2ppbHash = tmp
+	}
 	if err := get(snowflake); err != nil {
 		return err
 	}
-	//	if err := get(noscript); err != nil {
-	//		return err
-	//	}
+	if tmp, err := sha256sum(snowflake[0]); err != nil {
+		return err
+	} else {
+		snowflakeHash = tmp
+	}
+	/*
+		//	if err := get(noscript); err != nil {
+		//		return err
+		//	}
+		//	if tmp, err := sha256sum(noscript[0]); err != nil {
+		//		return err
+		//	}else{
+		//		i2ppbHash = tmp
+		//	}
+	*/
 	if err := get(umatrix); err != nil {
 		return err
 	}
+	if tmp, err := sha256sum(umatrix[0]); err != nil {
+		return err
+	} else {
+		umatrixHash = tmp
+	}
 	if err := get(ublock); err != nil {
 		return err
+	}
+	if tmp, err := sha256sum(ublock[0]); err != nil {
+		return err
+	} else {
+		ublockHash = tmp
 	}
 	return nil
 }
@@ -91,7 +185,7 @@ func download(path string, url string) error {
 
 func get(extension []string) error {
 	if len(extension) == 3 {
-		path := extension[1] + "/" + extension[2]
+		path := extension[1] + extension[2] + "/" + extension[0]
 		err := download(extension[0], path)
 		if err != nil {
 			return err
@@ -111,7 +205,14 @@ func get(extension []string) error {
 /// wget -nv -c -O
 
 func main() {
+	os.RemoveAll("ifox")
 	if err := fetch(); err != nil {
+		log.Fatal(err)
+	}
+	if err := pureFile(); err != nil {
+		log.Fatal(err)
+	}
+	if err := variantFile(); err != nil {
 		log.Fatal(err)
 	}
 	// You can also run "npm build" or webpack here, or compress assets, or

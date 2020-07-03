@@ -4,16 +4,6 @@ package main
 
 var NOM = "pure"
 
-var EXTENSIONS = []string{
-	"i2ppb@eyedeekay.github.io.xpi",
-	"uBlock0@raymondhill.net.xpi",
-	"uMatrix@raymondhill.net.xpi",
-}
-var EXTENSIONHASHES = []string{
-	"cfe099042996c32e7bebc62d89afe5ce5b7aef16a9f1da3931a75052fb3f6849",
-	"997aac00064665641298047534c9392492ef09f0cbf177b6a30d4fa288081579",
-	"991f0fa5c64172b8a2bc0a010af60743eba1c18078c490348e1c6631882cbfc7",
-}
 var ARGS = []string{
 	/*"--example-arg",*/
 }
