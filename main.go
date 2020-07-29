@@ -8,11 +8,15 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"context"
 	"path/filepath"
+	"time"
+	"flag"
 
 	. "github.com/eyedeekay/GingerShrew/import"
 	"github.com/eyedeekay/checki2cp"
-	. "github.com/eyedeekay/go-fpw"
+	.	"github.com/eyedeekay/go-fpw"
+		"github.com/eyedeekay/zerobundle"
 )
 
 func userFind() string {
@@ -87,24 +91,37 @@ func writeProfile(FS *fs) bool {
 }
 
 func main() {
+  flag.Parse()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	if err := UnpackTBZ(gingerdir); err != nil {
 		log.Fatal("Error unpacking embedded browser")
 	} else {
 		os.Setenv("FIREFOX_BIN", filepath.Join(gingerdir, "gingershrew", "gingershrew"))
 	}
 	if err := WriteI2CPConf(); err != nil {
-		if ok, err := checki2p.ConditionallyLaunchI2P(); ok {
-			if err != nil {
-				log.Println(err)
-			} else {
-				if err := launchi2pd(); err != nil {
-					log.Println("Embedded router failed to launch", err)
-				}
-			}
-		} else {
-			log.Println("Undefined I2P launching error")
+    log.Println(err)
+	}
+	if ok, err := checki2p.ConditionallyLaunchI2P(); ok {
+		if err != nil {
+			log.Println(err)
+		}
+	} else {
+		if err := zerobundle.UnpackZero(); err != nil {
+			log.Println(err)
+		}
+		latest := zerobundle.LatestZero()
+		log.Println("latest zero version is:", latest)
+		if err := zerobundle.StartZero(); err != nil {
+			log.Fatal(err)
+		}
+		log.Println("Starting SAM")
+		if err := zerobundle.SAM(); err != nil {
+			log.Fatal(err)
 		}
 	}
+	time.Sleep(time.Second * 2)
+	go proxyMain(ctx)
 	firstrun := writeProfile(FS)
 	prefs := filepath.Join(userdir, "/user.js")
 	if _, err := os.Stat(prefs); os.IsNotExist(err) {
@@ -130,3 +147,4 @@ func main() {
 		<-FIREFOX.Done()
 	}
 }
+
