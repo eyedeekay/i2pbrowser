@@ -4,19 +4,19 @@ package main
 
 import (
 	"bytes"
+	"context"
+	"flag"
 	"io"
 	"io/ioutil"
 	"log"
 	"os"
-	"context"
 	"path/filepath"
 	"time"
-	"flag"
 
 	. "github.com/eyedeekay/GingerShrew/import"
 	"github.com/eyedeekay/checki2cp"
-	.	"github.com/eyedeekay/go-fpw"
-		"github.com/eyedeekay/zerobundle"
+	. "github.com/eyedeekay/go-fpw"
+	"github.com/eyedeekay/zerobundle"
 )
 
 func userFind() string {
@@ -91,7 +91,7 @@ func writeProfile(FS *fs) bool {
 }
 
 func main() {
-  flag.Parse()
+	flag.Parse()
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	if err := UnpackTBZ(gingerdir); err != nil {
@@ -100,7 +100,7 @@ func main() {
 		os.Setenv("FIREFOX_BIN", filepath.Join(gingerdir, "gingershrew", "gingershrew"))
 	}
 	if err := WriteI2CPConf(); err != nil {
-    log.Println(err)
+		log.Println(err)
 	}
 	if ok, err := checki2p.ConditionallyLaunchI2P(); ok {
 		if err != nil {
@@ -147,4 +147,3 @@ func main() {
 		<-FIREFOX.Done()
 	}
 }
-

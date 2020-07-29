@@ -104,7 +104,7 @@ func sha256sum(path string) (string, error) {
 	sum := sha256.Sum256(bytes)
 	var s []byte
 	for _, c := range sum {
-		s = append(s,c)
+		s = append(s, c)
 	}
 	log.Println(fmt.Sprintf("%x", sum))
 	return fmt.Sprintf("%x", sum), nil

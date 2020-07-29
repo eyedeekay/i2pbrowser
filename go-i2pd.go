@@ -1,20 +1,20 @@
 package main
 
 import (
-	"github.com/eyedeekay/zerobundle"
 	"github.com/eyedeekay/httptunnel"
-  "github.com/eyedeekay/httptunnel/multiproxy"
+	"github.com/eyedeekay/httptunnel/multiproxy"
+	"github.com/eyedeekay/zerobundle"
 
-"context"
+	"context"
 	"flag"
 	"io/ioutil"
 	"log"
+	"net"
+	"net/http"
 	"os"
 	"os/signal"
 	"path/filepath"
 	"strings"
-	"net"
-	"net/http"
 	"time"
 )
 
@@ -25,13 +25,13 @@ i2cp.tcp.port=7654
 var (
 	tunnelName           = flag.String("service-name", "sam-browser-proxy", "Name of the service(can be anything)")
 	aggressiveIsolation  = flag.Bool("mode-aggressive", false, "Create a new client for every single eepSite, rather than making use of contextual identities")
-	controlPortString        = flag.String("control-addr", "127.0.0.1:7951", ":port of the SAM bridge")
-	proxyPortString        = flag.String("proxy-addr", "127.0.0.1:4444", ":port of the SAM bridge")
+	controlPortString    = flag.String("control-addr", "127.0.0.1:7951", ":port of the SAM bridge")
+	proxyPortString      = flag.String("proxy-addr", "127.0.0.1:4444", ":port of the SAM bridge")
 	samHostString        = flag.String("bridge-host", "127.0.0.1", "host: of the SAM bridge")
 	samPortString        = flag.String("bridge-port", "7656", ":port of the SAM bridge")
 	watchProfiles        = flag.String("watch-profiles", "~/.mozilla/.firefox.profile.i2p.default/user.js,~/.mozilla/.firefox.profile.i2p.debug/user.js", "Monitor and control these Firefox profiles")
 	destfile             = flag.String("dest-file", "invalid.tunkey", "Use a long-term destination key")
-	debugConnection      = flag.Bool("conn-debug", true, "Print connection debug info")
+	debugConnection      = flag.Bool("conn-debug", false, "Print connection debug info")
 	inboundTunnelLength  = flag.Int("in-tun-length", 2, "Tunnel Length(default 3)")
 	outboundTunnelLength = flag.Int("out-tun-length", 2, "Tunnel Length(default 3)")
 	inboundTunnels       = flag.Int("in-tunnels", 2, "Inbound Tunnel Count(default 2)")
@@ -46,9 +46,9 @@ var (
 	useCompression       = flag.Bool("use-compression", true, "Enable gzip compression")
 	reduceIdleTime       = flag.Int("reduce-idle-time", 2000000, "Reduce tunnels after time(Ms)")
 	reduceIdleQuantity   = flag.Int("reduce-idle-tunnels", 1, "Reduce tunnels to this level")
-	runCommand           = flag.String("run-command", "", "Execute command using the *_PROXY environment variables")
-	runArguments         = flag.String("run-arguments", "", "Pass arguments to run-command")
-	suppressLifetime     = flag.Bool("suppress-lifetime-output", false, "Suppress \"Tunnel lifetime\" output")
+	//	runCommand           = flag.String("run-command", "", "Execute command using the *_PROXY environment variables")
+	//	runArguments         = flag.String("run-arguments", "", "Pass arguments to run-command")
+	suppressLifetime = flag.Bool("suppress-lifetime-output", true, "Suppress \"Tunnel lifetime\" output")
 )
 
 func WriteI2CPConf() error {
@@ -67,7 +67,7 @@ func WriteI2CPConf() error {
 }
 
 func proxyMain(ctx context.Context) {
-  profiles := strings.Split(*watchProfiles, ",")
+	profiles := strings.Split(*watchProfiles, ",")
 
 	srv := &http.Server{
 		ReadTimeout:  600 * time.Second,
@@ -121,10 +121,10 @@ func proxyMain(ctx context.Context) {
 		}
 	}()
 
-  cln, err := net.Listen("tcp4", *controlPortString)
-  if err != nil {
-    log.Fatal(err)
-  }
+	cln, err := net.Listen("tcp4", *controlPortString)
+	if err != nil {
+		log.Fatal(err)
+	}
 	go func() {
 		log.Println("Starting control server on", cln.Addr())
 		if err := ctrlsrv.Serve(cln); err != nil {
@@ -136,10 +136,10 @@ func proxyMain(ctx context.Context) {
 		log.Println("Stopping control server on", cln.Addr())
 	}()
 
-  ln, err := net.Listen("tcp4", *controlPortString)
-  if err != nil {
-    log.Fatal(err)
-  }
+	ln, err := net.Listen("tcp4", *proxyPortString)
+	if err != nil {
+		log.Fatal(err)
+	}
 	go func() {
 		log.Println("Starting proxy server on", ln.Addr())
 		if err := srv.Serve(ln); err != nil {
