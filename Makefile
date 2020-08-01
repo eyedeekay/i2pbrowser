@@ -12,10 +12,10 @@ LAUNCH_VERSION=$(VERSION).09
 
 GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
 
-build: setup gen
+build:
 	go build $(GO_COMPILER_OPTS)
 
-assets: clean setup assets.go
+assets: clean assets.go
 
 gen:
 	go run $(GO_COMPILER_OPTS) -tags generate gen.go extensions.go
@@ -32,14 +32,26 @@ sum: exts
 
 all: pure variant
 
-pure: clean setup assets.go
+pure: clean assets.go windows osx linux
+
+windows:
 	GOOS=windows go build $(GO_COMPILER_OPTS) -o i2pfirefox.exe
+
+osx:
 	#GOOS=darwin go build $(GO_COMPILER_OPTS) -o i2pfirefox-darwin
+
+linux:
 	GOOS=linux go build $(GO_COMPILER_OPTS) -o i2pfirefox
 
-variant: clean setup-variant assets.go
+variant: clean assets.go vwindows vosx vlinux
+
+vwindows:
 	GOOS=windows go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant.exe
+
+vosx:
 	#GOOS=darwin go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant-darwin
+
+vlinux:
 	GOOS=linux go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant
 
 release:

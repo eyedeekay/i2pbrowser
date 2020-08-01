@@ -11,10 +11,10 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"runtime"
 	"time"
 
 	. "github.com/eyedeekay/GingerShrew/import"
-	"github.com/eyedeekay/checki2cp"
 	. "github.com/eyedeekay/go-fpw"
 	"github.com/eyedeekay/zerobundle"
 )
@@ -25,6 +25,7 @@ func userFind() string {
 	}
 	if un, err := os.UserHomeDir(); err == nil {
 		os.MkdirAll(filepath.Join(un, "i2p"), 0755)
+		os.MkdirAll(filepath.Join(un, "i2p", "opt"), 0755)
 		os.MkdirAll(filepath.Join(un, "i2p", "firefox-profiles", NOM), 0755)
 		os.MkdirAll(filepath.Join(un, "i2p", "rhizome"), 0755)
 		return un
@@ -94,31 +95,18 @@ func main() {
 	flag.Parse()
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	if err := UnpackTBZ(gingerdir); err != nil {
-		log.Fatal("Error unpacking embedded browser")
-	} else {
-		os.Setenv("FIREFOX_BIN", filepath.Join(gingerdir, "gingershrew", "gingershrew"))
+	if runtime.GOOS != "windows" {
+		if err := UnpackTBZ(gingerdir); err != nil {
+			log.Fatal("Error unpacking embedded browser")
+		} else {
+			os.Setenv("FIREFOX_BIN", filepath.Join(gingerdir, "gingershrew", "gingershrew"))
+		}
 	}
 	if err := WriteI2CPConf(); err != nil {
 		log.Println(err)
 	}
-	if ok, err := checki2p.ConditionallyLaunchI2P(); ok {
-		if err != nil {
-			log.Println(err)
-		}
-	} else {
-		if err := zerobundle.UnpackZero(); err != nil {
-			log.Println(err)
-		}
-		latest := zerobundle.LatestZero()
-		log.Println("latest zero version is:", latest)
-		if err := zerobundle.StartZero(); err != nil {
-			log.Fatal(err)
-		}
-		log.Println("Starting SAM")
-		if err := zerobundle.SAM(); err != nil {
-			log.Fatal(err)
-		}
+	if err := zerobundle.ZeroMain(); err != nil {
+		log.Println(err)
 	}
 	time.Sleep(time.Second * 2)
 	go proxyMain(ctx)
