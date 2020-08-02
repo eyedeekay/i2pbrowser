@@ -38,7 +38,7 @@ windows: fmt
 	GOOS=windows go build $(GO_COMPILER_OPTS) -o i2pfirefox.exe
 
 osx: fmt
-	#GOOS=darwin go build $(GO_COMPILER_OPTS) -o i2pfirefox-darwin
+	GOOS=darwin go build $(GO_COMPILER_OPTS) -o i2pfirefox-darwin
 
 linux: fmt
 	GOOS=linux go build $(GO_COMPILER_OPTS) -o i2pfirefox
@@ -49,7 +49,7 @@ vwindows: fmt
 	GOOS=windows go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant.exe
 
 vosx: fmt
-	#GOOS=darwin go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant-darwin
+	GOOS=darwin go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant-darwin
 
 vlinux: fmt
 	GOOS=linux go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant
@@ -64,6 +64,10 @@ release-variant:
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-variant.exe" -f "i2pfirefox-variant.exe"
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-variant-darwin" -f "i2pfirefox-variant-darwin"
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-variant" -f "i2pfirefox-variant"
+
+release-all: release release-variant
+
+clean-release: all release-all
 
 i2p-zero:
 	git clone https://github.com/i2p-zero/i2p-zero.git; \
