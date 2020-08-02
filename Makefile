@@ -15,13 +15,13 @@ GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
 build:
 	go build $(GO_COMPILER_OPTS)
 
-assets: clean assets.go
+assets: fmt assets.go
 
 gen:
 	go run $(GO_COMPILER_OPTS) -tags generate gen.go extensions.go
 
-clean:
-	gofmt -w -s main.go pure.go variant.go gen.go
+fmt:
+	gofmt -w -s main.go pure.go variant.go gen.go chromium.go
 
 sum: exts
 	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi
@@ -32,26 +32,26 @@ sum: exts
 
 all: pure variant
 
-pure: clean assets.go windows osx linux
+pure: fmt assets.go windows osx linux
 
-windows:
+windows: fmt
 	GOOS=windows go build $(GO_COMPILER_OPTS) -o i2pfirefox.exe
 
-osx:
+osx: fmt
 	#GOOS=darwin go build $(GO_COMPILER_OPTS) -o i2pfirefox-darwin
 
-linux:
+linux: fmt
 	GOOS=linux go build $(GO_COMPILER_OPTS) -o i2pfirefox
 
-variant: clean assets.go vwindows vosx vlinux
+variant: fmt assets.go vwindows vosx vlinux
 
-vwindows:
+vwindows: fmt
 	GOOS=windows go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant.exe
 
-vosx:
+vosx: fmt
 	#GOOS=darwin go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant-darwin
 
-vlinux:
+vlinux: fmt
 	GOOS=linux go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant
 
 release:

@@ -10,10 +10,27 @@ import (
 	"log"
 	"net/http"
 	"os"
+	//"os/exec"
 	"time"
 
 	"github.com/zserge/lorca"
 )
+
+var x = `<dependency>
+        <dependentAssembly>
+            <assemblyIdentity type="win32" name="Microsoft.VC140.CRT" version="1.0.0.0"></assemblyIdentity>
+        </dependentAssembly>
+    </dependency>`
+
+var manifest = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns:asm.v3="urn:schemas-microsoft-com:asm.v3" xmlns="urn:schemas-microsoft-com:asm.v3" manifestVersion="1.0">
+    <assemblyIdentity
+    version="0.0.0.1"
+    name="i2pfirefox.exe"
+    type="win32"/>
+    <description>I2P Browsing Bundle</description>
+</assembly>
+`
 
 var pureExtensions = `// +build !variant
 
@@ -165,22 +182,26 @@ func determinate(path string) error {
 }
 
 func download(path string, url string) error {
-	os.MkdirAll("ifox", 0755)
-	// Get the data
-	resp, err := http.Get(url)
-	if err != nil {
+	if _, err := os.Stat("ifox/" + path); os.IsNotExist(err) {
+		os.MkdirAll("ifox", 0755)
+		log.Println("fetching", path, "from", url)
+		// Get the data
+		resp, err := http.Get(url)
+		if err != nil {
+			return err
+		}
+		defer resp.Body.Close()
+		// Create the file
+		out, err := os.Create("ifox/" + path)
+		if err != nil {
+			return err
+		}
+		defer out.Close()
+		// Write the body to file
+		_, err = io.Copy(out, resp.Body)
 		return err
 	}
-	defer resp.Body.Close()
-	// Create the file
-	out, err := os.Create("ifox/" + path)
-	if err != nil {
-		return err
-	}
-	defer out.Close()
-	// Write the body to file
-	_, err = io.Copy(out, resp.Body)
-	return err
+	return nil
 }
 
 func get(extension []string) error {
@@ -202,10 +223,12 @@ func get(extension []string) error {
 	return fmt.Errorf("Error fetching extension for build.")
 }
 
-/// wget -nv -c -O
-
 func main() {
-	os.RemoveAll("ifox")
+	//os.RemoveAll("ifox")
+	//ioutil.WriteFile("i2pfirefox.manifest", []byte(manifest), 0644)
+	//if err := exec.Command("rsrc", "-manifest", "i2pfirefox.manifest", "-o", "rsrc.syso").Run(); err != nil {
+	//log.Fatal(err)
+	//}
 	if err := fetch(); err != nil {
 		log.Fatal(err)
 	}
