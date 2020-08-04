@@ -8,7 +8,7 @@ UMAT_VERSION=1.25.2
 UBLO_VERSION=1.4.0
 NOSS_VERSION=11.0.23
 ZERO_VERSION=v1.16
-LAUNCH_VERSION=$(VERSION).091
+LAUNCH_VERSION=$(VERSION).092
 
 GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
 
@@ -24,7 +24,7 @@ clean: fmt
 	rm -f i2pfirefox*
 
 fmt:
-	gofmt -w -s main.go pure.go variant.go gen.go chromium.go
+	gofmt -w -s *.go
 
 sum:
 	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi
@@ -99,7 +99,7 @@ release-variant:
 	make release; true
 	make upload-variant
 
-clean-release: all release-all
+clean-release: clean release-pure release-variant
 
 i2p-zero:
 	git clone https://github.com/i2p-zero/i2p-zero.git; \
