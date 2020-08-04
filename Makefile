@@ -15,7 +15,7 @@ GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
 build:
 	go build $(GO_COMPILER_OPTS)
 
-assets: fmt assets.go
+assets: fmt lib/assets.go
 
 gen:
 	go run $(GO_COMPILER_OPTS) -tags generate gen.go extensions.go
@@ -25,6 +25,12 @@ clean: fmt
 
 fmt:
 	gofmt -w -s *.go
+	gofmt -w -s \
+		lib/firefox.go
+		lib/pure.go
+		lib/pureextensions.go
+		lib/variant.go
+		lib/variantextensions.go
 
 sum:
 	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi
@@ -35,7 +41,7 @@ sum:
 
 all: pure variant
 
-pure: fmt assets.go windows osx linux
+pure: fmt lib/assets.go windows osx linux
 
 windows: fmt
 	GOOS=windows go build $(GO_COMPILER_OPTS) -o i2pfirefox.exe

@@ -60,15 +60,15 @@ func hello() error {
 	return nil
 }
 
-func proxyCheck() bool{
-  conn, err := net.Dial("tcp4", "localhost:4444")
-  log.Println("Doing dial check")
-  if err != nil {
-    return false
-  }
-  log.Println("Dial check true, proxy is up")
-  defer conn.Close()
-  return true
+func proxyCheck() bool {
+	conn, err := net.Dial("tcp4", "localhost:4444")
+	log.Println("Doing dial check")
+	if err != nil {
+		return false
+	}
+	log.Println("Dial check true, proxy is up")
+	defer conn.Close()
+	return true
 }
 
 func main() {
@@ -101,7 +101,7 @@ func main() {
 	}
 	time.Sleep(time.Second * 2)
 	if !proxyCheck() {
-  	go proxyMain(ctx)
+		go proxyMain(ctx)
 	}
 	if !*chromium {
 		firefoxMain()
