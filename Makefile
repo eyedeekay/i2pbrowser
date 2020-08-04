@@ -8,7 +8,7 @@ UMAT_VERSION=1.25.2
 UBLO_VERSION=1.4.0
 NOSS_VERSION=11.0.23
 ZERO_VERSION=v1.16
-LAUNCH_VERSION=$(VERSION).09
+LAUNCH_VERSION=$(VERSION).091
 
 GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
 
@@ -20,10 +20,13 @@ assets: fmt assets.go
 gen:
 	go run $(GO_COMPILER_OPTS) -tags generate gen.go extensions.go
 
+clean: fmt
+	rm -f i2pfirefox*
+
 fmt:
 	gofmt -w -s main.go pure.go variant.go gen.go chromium.go
 
-sum: exts
+sum:
 	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi
 	sha256sum 'ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi'
 	sha256sum ifox/uBlock0@raymondhill.net.xpi
@@ -54,18 +57,47 @@ vosx: fmt
 vlinux: fmt
 	GOOS=linux go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant
 
+sumwindows=`sha256sum i2pfirefox.exe`
+sumlinux=`sha256sum i2pfirefox`
+sumdarwin=`sha256sum i2pfirefox-darwin`
+sumvwindows=`sha256sum i2pfirefox-variant.exe`
+sumvlinux=`sha256sum i2pfirefox-variant`
+sumvdarwin=`sha256sum i2pfirefox-variant-darwin`
+
+check:
+	echo "$(sumwindows)"
+	echo "$(sumlinux)"
+	echo "$(sumdarwin)"
+	echo "$(sumvwindows)"
+	echo "$(sumvlinux)"
+	echo "$(sumvdarwin)"
+
 release:
 	gothub release -p -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "Launchers" -d "A self-configuring launcher for mixed I2P and clearnet Browsing with Firefox"
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox.exe" -f "i2pfirefox.exe"
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-darwin" -f "i2pfirefox-darwin"
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox" -f "i2pfirefox"
 
-release-variant:
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-variant.exe" -f "i2pfirefox-variant.exe"
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-variant-darwin" -f "i2pfirefox-variant-darwin"
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "i2pfirefox-variant" -f "i2pfirefox-variant"
+upload:
+	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumwindows)" -n "i2pfirefox.exe" -f "i2pfirefox.exe"
+	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumdarwin)" -n "i2pfirefox-darwin" -f "i2pfirefox-darwin"
+	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumlinux)" -n "i2pfirefox" -f "i2pfirefox"
 
-release-all: release release-variant
+upload-variant:
+	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumvwindows)" -n "i2pfirefox-variant.exe" -f "i2pfirefox-variant.exe"
+	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumvdarwin)" -n "i2pfirefox-variant-darwin" -f "i2pfirefox-variant-darwin"
+	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumvlinux)" -n "i2pfirefox-variant" -f "i2pfirefox-variant"
+
+upload-all: upload upload-variant
+
+release-all: release upload-all
+
+release-pure:
+	make pure
+	make release; true
+	make upload
+
+release-variant: 
+	make variant
+	make release; true
+	make upload-variant
 
 clean-release: all release-all
 

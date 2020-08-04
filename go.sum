@@ -175,6 +175,8 @@ github.com/eyedeekay/zerobundle v0.0.0-20200802064839-ff08f711c3f9 h1:ROVKA3xcRX
 github.com/eyedeekay/zerobundle v0.0.0-20200802064839-ff08f711c3f9/go.mod h1:J4pHO/M5C5c5kD2nwCHuJc06i0mkOjSwIurnj7fVIPY=
 github.com/eyedeekay/zerobundle v0.0.0-20200802224726-ade60064998c h1:vne+x6MOOLls+wxN23VaJ3qgF8Qq3vdebK4OkpOlxIM=
 github.com/eyedeekay/zerobundle v0.0.0-20200802224726-ade60064998c/go.mod h1:J4pHO/M5C5c5kD2nwCHuJc06i0mkOjSwIurnj7fVIPY=
+github.com/eyedeekay/zerobundle v0.0.0-20200803002433-d08cdaba1810 h1:09MAije/deFIkcARbMKbAIG3IH2puZjLG5OV45y+F+I=
+github.com/eyedeekay/zerobundle v0.0.0-20200803002433-d08cdaba1810/go.mod h1:J4pHO/M5C5c5kD2nwCHuJc06i0mkOjSwIurnj7fVIPY=
 github.com/eyedeekay/zerobundle/parts v0.0.0-20200729142507-09254e0fcd4a h1:kS2ZOf/ZiHnV+JL/V5yxr4I9qDLSvKXBjmHUm/xCPRM=
 github.com/eyedeekay/zerobundle/parts/aa v0.0.0-20200729142507-09254e0fcd4a h1:SCBVcTjxLI1idb/Idgf3WJN9FdKKnnauoJCd8QRfMVE=
 github.com/eyedeekay/zerobundle/parts/aa v0.0.0-20200729142507-09254e0fcd4a/go.mod h1:tVoCDPZqyc9Q5NKmU7m9jMHCFLuDhurZPsnnzv89pGE=

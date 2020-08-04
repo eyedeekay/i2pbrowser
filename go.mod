@@ -10,7 +10,7 @@ require (
 	github.com/eyedeekay/go-ccw v0.0.0-20200403222455-d0e01222fd2a
 	github.com/eyedeekay/go-fpw v0.0.0-20200512022837-c8b4dcdc74d4
 	github.com/eyedeekay/httptunnel v0.0.0-20200116022455-631ab90f707d
-	github.com/eyedeekay/zerobundle v0.0.0-20200802224726-ade60064998c
+	github.com/eyedeekay/zerobundle v0.0.0-20200803002433-d08cdaba1810
 	github.com/klauspost/compress v1.10.10 // indirect
 	github.com/klauspost/pgzip v1.2.4 // indirect
 	github.com/pierrec/lz4/v3 v3.3.2 // indirect
