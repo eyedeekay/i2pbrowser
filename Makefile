@@ -52,7 +52,7 @@ osx: fmt
 linux: fmt
 	GOOS=linux go build $(GO_COMPILER_OPTS) -o i2pfirefox
 
-variant: fmt assets.go vwindows vosx vlinux
+variant: fmt lib/assets.go vwindows vosx vlinux
 
 vwindows: fmt
 	GOOS=windows go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant.exe
