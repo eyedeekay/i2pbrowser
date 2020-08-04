@@ -26,10 +26,10 @@ clean: fmt
 fmt:
 	gofmt -w -s *.go
 	gofmt -w -s \
-		lib/firefox.go
-		lib/pure.go
-		lib/pureextensions.go
-		lib/variant.go
+		lib/firefox.go \
+		lib/pure.go \
+		lib/pureextensions.go \
+		lib/variant.go \
 		lib/variantextensions.go
 
 sum:
