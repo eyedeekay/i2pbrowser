@@ -107,15 +107,3 @@ release-variant:
 
 clean-release: clean release-pure release-variant
 
-i2p-zero:
-	git clone https://github.com/i2p-zero/i2p-zero.git; \
-		cd i2p-zero && \
-		git fetch --all --tags && \
-		git checkout $(ZERO_VERSION)
-
-zero-build: i2p-zero
-	cd i2p-zero && \
-		./bin/build-all-and-zip.sh
-
-zero-copy:
-	cp -rv i2p-zero ifox
