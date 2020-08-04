@@ -1,9 +1,20 @@
 I2P Profile Configuring Launcher for Firefox, Multiplatform
 ===========================================================
 
-Configures a Firefox profile for use with I2P Sites, I2P applications,
-and offering a Tor-based alternative mode for use as an outproxy. It is an
-experimental application for now.
+Configures a Firefox profile for use with I2P Sites, I2P applications, and
+I2P configuration. Provides a bundled I2P Router and a pre-configured
+browser. Notably, it is completely compatible with any pre-installed router
+while also not requiring a pre-installed I2P router, which means that it
+can be used as a one-click introduction to I2P use for beginners while *also*
+being a convenient, automatic way to configure I2P Browsing for I2P users
+who have been around for years. It is a project to minimize I2P browsing
+misconfiguration and explore options to improve our response to various
+threat models, in a way similar to Tor Browser did but with the ability to
+fulfill I2P's specific needs.
+
+If you're a beginner, who uses this and is interested in learning more about
+I2P, I advise you to install a fully-featured I2P router by following my
+detailed install guide here: https://github.com/eyedeekay/Install-Java-And-I2P-on-Windows.
 
 Installation
 ------------
@@ -36,10 +47,19 @@ go get -u github.com/eyedeekay/i2pfirefox
 What things does it do?
 -----------------------
 
-Rapidly growing in number. It manages a Firefox profile, and a whole
-Firefox browser on Linux. It makes sure an I2P router is ready to work with
-I2P, including launching an embedded I2P Zero router if an I2P router is
-not available to start. It installs browser extensions in Firefox and
-installs browser extensions.
+- It manages a Firefox profile, and a whole Firefox browser on Linux. It falls back to Chrome if Firefox is not
+ available.
+- It makes sure an I2P router is ready to work for I2P browsing, including launching an embedded I2P Zero router if an I2P router is
+ not available to start.
+- It installs browser extensions in Firefox.
+- It embeds its own HTTP Proxy for browsing inside I2P
+- Easily integrate Go and Webassembly based web applications as well enhance Java I2P apps
 
-Much more to be added soon.
+It *can eventually*
+-------------------
+
+- Also browse Tor, use Tor as an outproxy
+- Embed web applications(Like webtorrent, webIRC), under human-readable domain-like aliases
+- Bring along TLS certificates for those domain-like aliases
+- Update itself via bittorrent
+
