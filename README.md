@@ -29,13 +29,13 @@ description.
 
 ```Bash
 # Linux
-wget -O i2pfirefox-darwin https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.091/i2pfirefox
+wget -O i2pfirefox-darwin https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.092/i2pfirefox
 
 # Windows
-wget -O i2pfirefox-darwin https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.091/i2pfirefox.exe
+wget -O i2pfirefox-darwin https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.092/i2pfirefox.exe
 
 # OSX
-wget -O i2pfirefox-darwin https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.091/i2pfirefox-darwin
+wget -O i2pfirefox-darwin https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.092/i2pfirefox-darwin
 ```
 
 Go developers with at least go 1.14 installed can build it from source with:
