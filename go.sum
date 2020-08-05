@@ -130,6 +130,8 @@ github.com/eyedeekay/go-fpw v0.0.0-20200512000155-818dd5b71e7a h1:Hiv9cEmUjhUbHN
 github.com/eyedeekay/go-fpw v0.0.0-20200512000155-818dd5b71e7a/go.mod h1:RyCx7KuH+5ryvIpUF7SpxiChLtjeuPbVFCIzf8shIFc=
 github.com/eyedeekay/go-fpw v0.0.0-20200512022837-c8b4dcdc74d4 h1:fZggjpJu/JsYTCn1BjT1SICuEcab8Cyvz3BwI9aDIUw=
 github.com/eyedeekay/go-fpw v0.0.0-20200512022837-c8b4dcdc74d4/go.mod h1:RyCx7KuH+5ryvIpUF7SpxiChLtjeuPbVFCIzf8shIFc=
+github.com/eyedeekay/go-fpw v0.0.0-20200805184710-5435dc443213 h1:QhukeK1UqJLWe6UT/rMnPppdXkLiYDyzOiZ7YAYt6bA=
+github.com/eyedeekay/go-fpw v0.0.0-20200805184710-5435dc443213/go.mod h1:RyCx7KuH+5ryvIpUF7SpxiChLtjeuPbVFCIzf8shIFc=
 github.com/eyedeekay/go-i2cp v0.0.0-20190716135428-6d41bed718b0 h1:rnn9OlD/3+tATEZNuiMR1C84O5CX8bZL2qqgttprKrw=
 github.com/eyedeekay/go-i2cp v0.0.0-20190716135428-6d41bed718b0/go.mod h1:+P0fIhkqIYjo7exMJRTlSteRMbRyHbiBiKw+YlPWk+c=
 github.com/eyedeekay/go-i2pcontrol v0.0.0-20200110011336-510cca77e350/go.mod h1:bhIQsVpbNNXMtcoZ9UF4hLQleOjaCgKGXiRRhNc8TOA=

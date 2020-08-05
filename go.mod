@@ -8,7 +8,7 @@ require (
 	github.com/eyedeekay/I2P-Configuration-for-Chromium v0.0.0-20200802063209-8973270c836e
 	github.com/eyedeekay/checki2cp v0.0.17
 	github.com/eyedeekay/go-ccw v0.0.0-20200403222455-d0e01222fd2a
-	github.com/eyedeekay/go-fpw v0.0.0-20200512022837-c8b4dcdc74d4
+	github.com/eyedeekay/go-fpw v0.0.0-20200805184710-5435dc443213
 	github.com/eyedeekay/httptunnel v0.0.0-20200116022455-631ab90f707d
 	github.com/eyedeekay/zerobundle v0.0.0-20200804040541-f28536b381d0
 	github.com/klauspost/compress v1.10.10 // indirect
