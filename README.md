@@ -38,6 +38,12 @@ wget -O i2pfirefox-darwin https://github.com/eyedeekay/i2pfirefox/releases/downl
 wget -O i2pfirefox-darwin https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.093/i2pfirefox-darwin
 ```
 
+You may need to mark the downloaded file as executable, like this:
+
+```Bash
+chmod +x i2pfirefox*
+```
+
 Go developers with at least go 1.14 installed can build it from source with:
 
 ```Go
