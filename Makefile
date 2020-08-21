@@ -9,6 +9,7 @@ UBLO_VERSION=1.4.0
 NOSS_VERSION=11.0.23
 ZERO_VERSION=v1.16
 ZERO_VERSION_B=`echo $(ZERO_VERSION) | tr -d 'v.'`
+LAST_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).094
 LAUNCH_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).094
 
 GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
@@ -83,7 +84,10 @@ check:
 	echo "$(sumvdarwin)"
 
 release:
-	gothub release -p -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "Launchers" -d "A self-configuring launcher for mixed I2P and clearnet Browsing with Firefox"; true
+	gothub release -p -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "Launchers" -d "A self-configuring launcher for mixed I2P and clearnet Browsing with Firefox"
+	sed -i "s|$(LAST_VERSION)|$(LAUNCH_VERSION)|g" README.md
+	sed -i "s|$(LAST_VERSION)|$(LAUNCH_VERSION)|g" Makefile
+	git commit -am "Make release version $(LAUNCH_VERSION)" && git push
 
 upload:
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumwindows)" -n "i2pfirefox.exe" -f "i2pfirefox.exe"
