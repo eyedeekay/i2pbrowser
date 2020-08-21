@@ -29,13 +29,16 @@ description.
 
 ```Bash
 # Linux
-wget -O i2pfirefox-darwin https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.093/i2pfirefox
+wget -O i2pfirefox https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.094/i2pfirefox
+sha256sum i2pfirefox
 
 # Windows
-wget -O i2pfirefox-darwin https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.093/i2pfirefox.exe
+wget -O i2pfirefox.exe https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.094/i2pfirefox.exe
+does-windows-even-have-sha25sum i2pfirefox.exe
 
 # OSX
-wget -O i2pfirefox-darwin https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.093/i2pfirefox-darwin
+wget -O i2pfirefox-darwin https://github.com/eyedeekay/i2pfirefox/releases/download/0.73.094/i2pfirefox-darwin
+sha256sum i2pfirefox-darwin
 ```
 
 You may need to mark the downloaded file as executable, like this:
