@@ -1,0 +1,50 @@
+
+The MIT License (MIT)
+
+Copyright (c) 2020 idk
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+This project bundles other open source software in it's binary form, much of
+which is released under other licenses. Copies of the respective licences are
+available in the licenses directory.
+
+It incorporates a de-branded Firefox fork by way of GNU IceCat, which includes
+code available under the GPL2, MPL, and other licenses. Trademarks related to
+Mozilla Firefox have been removed completely with the assistance of IceCat's
+makeicecat script.
+
+It also incorporates i2p-zero, which is a standalone, dependency-free downstream
+of I2P. i2p-zero is released under the BSD three-clause license.
+
+Extensions are released under their own respective licenses, which are included
+in the extension.xpi files.
+
+uBlock Origin - Copyright Raymond Gorhill - GPLv3
+uMatrix - Copyright Raymond Gorhill - GPLv3
+I2P in Private Browsing - Copyright idk - MIT
+Snowflake - Copyright the Tor Project - 3-Clause BSD
+
+// If you are working on this and notice a file where I did not include something
+// which license is in use, please use the following template.
+
+/*
+Released under the The MIT License (MIT)
+see ./LICENSE
+*/

@@ -2,6 +2,11 @@
 
 package main
 
+/*
+Released under the The MIT License (MIT)
+see ./LICENSE
+*/
+
 import (
 	"crypto/sha256"
 	"fmt"

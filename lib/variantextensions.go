@@ -2,6 +2,11 @@
 
 package i2pfirefox
 
+/*
+Released under the The MIT License (MIT)
+see ./LICENSE
+*/
+
 var NOM = "variant"
 
 var EXTENSIONS = []string{

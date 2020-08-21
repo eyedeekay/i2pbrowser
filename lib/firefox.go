@@ -1,5 +1,10 @@
 package i2pfirefox
 
+/*
+Released under the The MIT License (MIT)
+see ./LICENSE
+*/
+
 import (
 	"bytes"
 	"fmt"

@@ -2,6 +2,11 @@
 
 package i2pfirefox
 
+/*
+Released under the The MIT License (MIT)
+see ./LICENSE
+*/
+
 var EXTENSIONS = []string{
 	"i2ppb@eyedeekay.github.io.xpi",
 	"uBlock0@raymondhill.net.xpi",
