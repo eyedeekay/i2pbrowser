@@ -1,4 +1,4 @@
-module github.com/eyedeekay/i2pfirefox
+module github.com/eyedeekay/i2pbrowser
 
 go 1.14
 
