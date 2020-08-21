@@ -21,7 +21,7 @@ import (
 
 	. "github.com/eyedeekay/GingerShrew/import"
 	. "github.com/eyedeekay/go-fpw"
-	. "github.com/eyedeekay/i2pfirefox/lib"
+	. "github.com/eyedeekay/i2pbrowser/lib"
 	"github.com/eyedeekay/zerobundle"
 )
 
