@@ -31,9 +31,13 @@ Mozilla Firefox have been removed completely with the assistance of IceCat's
 makeicecat script.
 
 It also incorporates i2p-zero, which is a standalone, dependency-free downstream
-of I2P. i2p-zero is released under the BSD three-clause license.
+of I2P. i2p-zero is released under the BSD three-clause license. I2P itself is
+released primarily into the public domain, with some components falling under
+other licenses. For more information, see:
 
-Extensions are released under their own respective licenses, which are included
+https://geti2p.net/en/get-involved/develop/licenses
+
+Extensions are used under their own respective licenses, which are included
 in the extension.xpi files.
 
 uBlock Origin - Copyright Raymond Gorhill - GPLv3
@@ -42,7 +46,7 @@ I2P in Private Browsing - Copyright idk - MIT
 Snowflake - Copyright the Tor Project - 3-Clause BSD
 
 // If you are working on this and notice a file where I did not include something
-// which license is in use, please use the following template.
+// to indicate which license is in use, please use the following template.
 
 /*
 Released under the The MIT License (MIT)
