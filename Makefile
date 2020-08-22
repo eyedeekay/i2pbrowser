@@ -9,8 +9,8 @@ UBLO_VERSION=1.4.0
 NOSS_VERSION=11.0.23
 ZERO_VERSION=v1.16
 ZERO_VERSION_B=`echo $(ZERO_VERSION) | tr -d 'v.'`
-LAST_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).095
-LAUNCH_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).096
+LAST_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).096
+LAUNCH_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).097
 
 GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
 
@@ -116,14 +116,16 @@ upload-all: upload upload-variant
 release-all: release upload-all
 
 release-pure:
-	make pure
 	make release; true
-	make upload
+	make linux upload-linux
+	make windows upload-windows
+	make osx upload-darwin
 
 release-variant: 
-	make variant
 	make release; true
-	make upload-variant
+	make vlinux upload-variant-linux
+	make vwindows upload-variant-windows
+	make vosx upload-variant-darwin
 
 clean-release: clean release-pure release-variant
 
