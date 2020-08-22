@@ -9,8 +9,8 @@ UBLO_VERSION=1.4.0
 NOSS_VERSION=11.0.23
 ZERO_VERSION=v1.16
 ZERO_VERSION_B=`echo $(ZERO_VERSION) | tr -d 'v.'`
-LAST_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).094
-LAUNCH_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).095
+LAST_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).095
+LAUNCH_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).096
 
 GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
 
@@ -89,14 +89,26 @@ release:
 	sed -i "s|$(LAST_VERSION)|$(LAUNCH_VERSION)|g" Makefile
 	git commit -am "Make release version $(LAUNCH_VERSION)" && git push
 
-upload:
+upload: upload-windows upload-darwin upload-linux
+
+upload-windows:
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumwindows)" -n "i2pfirefox.exe" -f "i2pfirefox.exe"
+
+upload-darwin:
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumdarwin)" -n "i2pfirefox-darwin" -f "i2pfirefox-darwin"
+
+upload-linux:
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumlinux)" -n "i2pfirefox" -f "i2pfirefox"
 
-upload-variant:
+upload-variant: upload-variant-windows upload-variant-darwin upload-variant-linux
+
+upload-variant-windows:
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumvwindows)" -n "i2pfirefox-variant.exe" -f "i2pfirefox-variant.exe"
+
+upload-variant-darwin:
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumvdarwin)" -n "i2pfirefox-variant-darwin" -f "i2pfirefox-variant-darwin"
+
+upload-variant-linux:
 	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumvlinux)" -n "i2pfirefox-variant" -f "i2pfirefox-variant"
 
 upload-all: upload upload-variant
