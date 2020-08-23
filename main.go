@@ -19,7 +19,7 @@ import (
 	"runtime"
 	"time"
 
-	. "github.com/eyedeekay/GingerShrew/import"
+	"github.com/eyedeekay/GingerShrew/import"
 	. "github.com/eyedeekay/go-fpw"
 	. "github.com/eyedeekay/i2pbrowser/lib"
 	"github.com/eyedeekay/zerobundle"
@@ -87,10 +87,13 @@ func main() {
 	defer cancel()
 	if runtime.GOOS == "linux" {
 		if !*chromium {
-			if err := UnpackTBZ(GingerDir); err != nil {
-				log.Fatal("Error unpacking embedded browser")
-			} else {
-				os.Setenv("FIREFOX_BIN", filepath.Join(GingerDir, "gingershrew", "gingershrew"))
+			if os.Getenv("FIREFOX_BIN") == "" {
+				if err := gingershrew.UnpackTBZ(GingerDir); err != nil {
+					log.Fatal("Error unpacking embedded browser")
+				} else {
+					os.Setenv("LD_LIBRARY_PATH", filepath.Join(GingerDir, "x86_64-linux-gnu"))
+					os.Setenv("FIREFOX_BIN", filepath.Join(GingerDir, "gingershrew", "gingershrew"))
+				}
 			}
 		}
 	} else {

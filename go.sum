@@ -105,6 +105,8 @@ github.com/elliotchance/orderedmap v1.2.0/go.mod h1:8hdSl6jmveQw8ScByd3AaNHNk51R
 github.com/etcd-io/bbolt v1.3.3/go.mod h1:ZF2nL25h33cCyBtcyWeZ2/I3HQOfTP+0PIEvHjkjCrw=
 github.com/eyedeekay/GingerShrew v0.0.0-20200702210346-bb2ed34c11fb h1:tUfxSHBVabVBpX0Rcupybxr7pBfG2E+p3N7EX4p9sc0=
 github.com/eyedeekay/GingerShrew v0.0.0-20200702210346-bb2ed34c11fb/go.mod h1:PY7znvZ1ZF1QG5/4j9u769EX49l49z2rCdE0o4z8fMw=
+github.com/eyedeekay/GingerShrew v0.0.0-20200823015403-11c67f550c33 h1:VD2HttHlFt6wfTjkbJMt/M/pmQT8Iq0I7CmEG81dwVM=
+github.com/eyedeekay/GingerShrew v0.0.0-20200823015403-11c67f550c33/go.mod h1:kDfSkqEyzswi8r4m6U0Q9jD4PJqOzKXVCX4XbYhBJCs=
 github.com/eyedeekay/I2P-Configuration-for-Chromium v0.0.0-20200802063209-8973270c836e h1:oEoiXkil4L/ahtVlljDwz5LXbE1qBsJqvC3/utNrKe4=
 github.com/eyedeekay/I2P-Configuration-for-Chromium v0.0.0-20200802063209-8973270c836e/go.mod h1:XchhjbeZKhEszN64SHavfaLGP2lFhWeO0ipH4cyBq5o=
 github.com/eyedeekay/checki2cp v0.0.15 h1:Vlwp9opuQJSgp139VVrLkKXRwLYYrXiBkqed35ZbqzY=
