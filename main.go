@@ -92,6 +92,7 @@ func main() {
 					log.Fatal("Error unpacking embedded browser")
 				} else {
 					os.Setenv("LD_LIBRARY_PATH", filepath.Join(GingerDir, "x86_64-linux-gnu"))
+					log.Println("LD_LIBRARY_PATH", filepath.Join(GingerDir, "x86_64-linux-gnu"))
 					os.Setenv("FIREFOX_BIN", filepath.Join(GingerDir, "gingershrew", "gingershrew"))
 				}
 			}
