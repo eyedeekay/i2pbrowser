@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/bmizerany/assert v0.0.0-20160611221934-b7ed37b82869 // indirect
-	github.com/eyedeekay/GingerShrew v0.0.0-20200824044622-7e8d465550e5
+	github.com/eyedeekay/GingerShrew v0.0.0-20200828154258-d799f84952aa
 	github.com/eyedeekay/I2P-Configuration-for-Chromium v0.0.0-20200802063209-8973270c836e
 	github.com/eyedeekay/go-fpw v0.0.0-20200805184710-5435dc443213
 	github.com/eyedeekay/httptunnel v0.0.0-20200116022455-631ab90f707d

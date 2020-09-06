@@ -1,6 +1,6 @@
 //+build generate
 
-package main
+package i2pbrowser
 
 /*
 Released under the The MIT License (MIT)
