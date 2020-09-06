@@ -10,3 +10,7 @@ import "github.com/eyedeekay/i2pbrowser/lib"
 func firefoxMain() {
 	i2pfirefox.FirefoxMain()
 }
+
+func firefoxLaunch() {
+	i2pfirefox.FirefoxLaunch()
+}

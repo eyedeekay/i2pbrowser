@@ -135,7 +135,7 @@ func MainNoEmbeddedStuff() {
 		go proxyMain(ctx)
 	}
 	if !chromium {
-		firefoxMain()
+		firefoxLaunch()
 	} else {
 		chromiumMain()
 	}
