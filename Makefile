@@ -28,7 +28,7 @@ gen:
 	go run $(GO_COMPILER_OPTS) -tags generate gen.go extensions.go
 
 clean: fmt
-	rm -f i2pfirefox*
+	rm -f $(BIN_NAME)*
 
 fmt:
 	gofmt -w -s *.go
@@ -51,31 +51,31 @@ all: pure variant
 pure: fmt lib/assets.go windows osx linux
 
 windows: fmt
-	GOOS=windows go build $(GO_COMPILER_OPTS) -o i2pfirefox.exe
+	GOOS=windows go build $(GO_COMPILER_OPTS) -o $(BIN_NAME).exe
 
 osx: fmt
-	GOOS=darwin go build $(GO_COMPILER_OPTS) -o i2pfirefox-darwin
+	GOOS=darwin go build $(GO_COMPILER_OPTS) -o $(BIN_NAME)-darwin
 
 linux: fmt
-	GOOS=linux go build $(GO_COMPILER_OPTS) -o i2pfirefox
+	GOOS=linux go build $(GO_COMPILER_OPTS) -o $(BIN_NAME)
 
 variant: fmt lib/assets.go vwindows vosx vlinux
 
 vwindows: fmt
-	GOOS=windows go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant.exe
+	GOOS=windows go build $(GO_COMPILER_OPTS) -tags variant -o $(BIN_NAME)-variant.exe
 
 vosx: fmt
-	GOOS=darwin go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant-darwin
+	GOOS=darwin go build $(GO_COMPILER_OPTS) -tags variant -o $(BIN_NAME)-variant-darwin
 
 vlinux: fmt
-	GOOS=linux go build $(GO_COMPILER_OPTS) -tags variant -o i2pfirefox-variant
+	GOOS=linux go build $(GO_COMPILER_OPTS) -tags variant -o $(BIN_NAME)-variant
 
-sumwindows=`sha256sum i2pfirefox.exe`
-sumlinux=`sha256sum i2pfirefox`
-sumdarwin=`sha256sum i2pfirefox-darwin`
-sumvwindows=`sha256sum i2pfirefox-variant.exe`
-sumvlinux=`sha256sum i2pfirefox-variant`
-sumvdarwin=`sha256sum i2pfirefox-variant-darwin`
+sumwindows=`sha256sum $(BIN_NAME).exe`
+sumlinux=`sha256sum $(BIN_NAME)`
+sumdarwin=`sha256sum $(BIN_NAME)-darwin`
+sumvwindows=`sha256sum $(BIN_NAME)-variant.exe`
+sumvlinux=`sha256sum $(BIN_NAME)-variant`
+sumvdarwin=`sha256sum $(BIN_NAME)-variant-darwin`
 
 check:
 	echo "$(sumwindows)"
@@ -86,7 +86,7 @@ check:
 	echo "$(sumvdarwin)"
 
 release:
-	gothub release -p -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -n "Launchers" -d "A self-configuring launcher for mixed I2P and clearnet Browsing with Firefox"
+	gothub release -p -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -n "Launchers" -d "A self-configuring launcher for mixed I2P and clearnet Browsing with Firefox"
 	sed -i "s|$(LAST_VERSION)|$(LAUNCH_VERSION)|g" README.md
 	sed -i "s|$(LAST_VERSION)|$(LAUNCH_VERSION)|g" Makefile
 	git commit -am "Make release version $(LAUNCH_VERSION)" && git push
@@ -94,24 +94,24 @@ release:
 upload: upload-windows upload-darwin upload-linux
 
 upload-windows:
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumwindows)" -n "i2pfirefox.exe" -f "i2pfirefox.exe"
+	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumwindows)" -n "$(BIN_NAME).exe" -f "$(BIN_NAME).exe"
 
 upload-darwin:
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumdarwin)" -n "i2pfirefox-darwin" -f "i2pfirefox-darwin"
+	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumdarwin)" -n "$(BIN_NAME)-darwin" -f "$(BIN_NAME)-darwin"
 
 upload-linux:
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumlinux)" -n "i2pfirefox" -f "i2pfirefox"
+	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumlinux)" -n "$(BIN_NAME)" -f "$(BIN_NAME)"
 
 upload-variant: upload-variant-windows upload-variant-darwin upload-variant-linux
 
 upload-variant-windows:
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumvwindows)" -n "i2pfirefox-variant.exe" -f "i2pfirefox-variant.exe"
+	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumvwindows)" -n "$(BIN_NAME)-variant.exe" -f "$(BIN_NAME)-variant.exe"
 
 upload-variant-darwin:
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumvdarwin)" -n "i2pfirefox-variant-darwin" -f "i2pfirefox-variant-darwin"
+	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumvdarwin)" -n "$(BIN_NAME)-variant-darwin" -f "$(BIN_NAME)-variant-darwin"
 
 upload-variant-linux:
-	gothub upload -R -u eyedeekay -r "i2pfirefox" -t $(LAUNCH_VERSION) -l "$(sumvlinux)" -n "i2pfirefox-variant" -f "i2pfirefox-variant"
+	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumvlinux)" -n "$(BIN_NAME)-variant" -f "$(BIN_NAME)-variant"
 
 upload-all: upload upload-variant
 
