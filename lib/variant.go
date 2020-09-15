@@ -222,7 +222,10 @@ user_pref("network.http.referer.spoofSource",			true);
 // PREF: Don't send referer headers when following links across different domains (disabled)
 // https://github.com/pyllyukko/user.js/issues/227
 // user_pref("network.http.referer.XOriginPolicy",		2);
-
+user_pref("media.peerconnection.default_iceservers", {“iceServers”: [{“url”: “stun:ppnxqa3o6ldzjaurbm4vrbutwsdlmaar5hhamga6jxvmstkeo4uq.b32.i2p″},
+{“url”:”turn:ppnxqa3o6ldzjaurbm4vrbutwsdlmaar5hhamga6jxvmstkeo4uq.b32.i2p“,
+"username":"user",
+“credential”:”pass”}]})
 `
 
 var EXTENSIONPREFS = `{}`

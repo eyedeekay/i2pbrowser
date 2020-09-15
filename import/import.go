@@ -119,12 +119,14 @@ func Main() {
 	}
 }
 
-func MainNoEmbeddedStuff() {
+func MainNoEmbeddedStuff(args []string) {
 	if err := hello(); err != nil {
 		log.Fatal(err)
 	}
 	chromium := false
-	ARGS = append(ARGS, flag.Args()...)
+	if args != nil {
+	  ARGS = append(ARGS, args...)
+	}
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
