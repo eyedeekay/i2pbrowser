@@ -38,6 +38,13 @@ fmt:
 		lib/pureextensions.go \
 		lib/variant.go \
 		lib/variantextensions.go
+	gofmt -w -s \
+		import/chromium.go \
+		import/extensions.go \
+		import/firefox.go \
+		import/httptunnel.go \
+		import/import.go
+
 
 sum:
 	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi

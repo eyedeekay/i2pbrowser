@@ -124,13 +124,10 @@ func MainNoEmbeddedStuff(args []string) {
 	if err := hello(); err != nil {
 		log.Fatal(err)
 	}
-	chromium := false
-	if args != nil {
-		ARGS = append(ARGS, args...)
-	}
-	for _, arg := range ARGS {
-		prefs := filepath.Join(UserDir, "chrome/userChrome.css")
+	for _, arg := range args {
+		UserDir = filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps")
 		if arg == "--app" {
+			prefs := filepath.Join(UserDir, "chrome/userChrome.css")
 			if _, err := os.Stat(prefs); os.IsNotExist(err) {
 				if err := ioutil.WriteFile(prefs, []byte(APPCHROME), 0644); err == nil {
 					log.Println("wrote", prefs)
@@ -141,6 +138,10 @@ func MainNoEmbeddedStuff(args []string) {
 				os.RemoveAll(prefs)
 			}
 		}
+	}
+	chromium := false
+	if args != nil {
+		ARGS = append(ARGS, args...)
 	}
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
