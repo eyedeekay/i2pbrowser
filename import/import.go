@@ -127,6 +127,10 @@ func MainNoEmbeddedStuff(args []string) {
 	for _, arg := range args {
 		UserDir = filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps")
 		if arg == "--app" {
+			err = os.MkdirAll(filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps", "chrome"), 0755)
+			if err != nil {
+				log.Fatal(err)
+			}
 			prefs := filepath.Join(UserDir, "chrome/userChrome.css")
 			if _, err := os.Stat(prefs); os.IsNotExist(err) {
 				if err := ioutil.WriteFile(prefs, []byte(APPCHROME), 0644); err == nil {
