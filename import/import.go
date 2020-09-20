@@ -128,7 +128,7 @@ func MainNoEmbeddedStuff(args []string) {
 	for _, arg := range args {
 		UserDir = filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps")
 		if arg == "--app" {
-			err = os.MkdirAll(filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps", "chrome"), 0755)
+			err := os.MkdirAll(filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps", "chrome"), 0755)
 			if err != nil {
 				log.Fatal(err)
 			}
