@@ -226,6 +226,25 @@ user_pref("media.peerconnection.default_iceservers", {“iceServers”: [{“url
 {“url”:”turn:ppnxqa3o6ldzjaurbm4vrbutwsdlmaar5hhamga6jxvmstkeo4uq.b32.i2p“,
 "username":"user",
 “credential”:”pass”}]})
+
+// PREF: re-enable crome/userChrome.css
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true)
+`
+
+var APPCHROME = `
+@namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+
+#navigator-toolbox {
+    height: 0px !important;
+    min-height: 0px !important;
+    overflow: hidden !important;
+}
+
+#navigator-toolbox:focus,
+#navigator-toolbox:focus-within,
+#navigator-toolbox:active {
+    height: auto !important;
+}
 `
 
 var EXTENSIONPREFS = `{}`

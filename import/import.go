@@ -11,6 +11,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
@@ -125,7 +126,21 @@ func MainNoEmbeddedStuff(args []string) {
 	}
 	chromium := false
 	if args != nil {
-	  ARGS = append(ARGS, args...)
+		ARGS = append(ARGS, args...)
+	}
+	for _, arg := range ARGS {
+		prefs := filepath.Join(UserDir, "chrome/userChrome.css")
+		if arg == "--app" {
+			if _, err := os.Stat(prefs); os.IsNotExist(err) {
+				if err := ioutil.WriteFile(prefs, []byte(APPCHROME), 0644); err == nil {
+					log.Println("wrote", prefs)
+				} else {
+					log.Fatal(err)
+				}
+			} else {
+				os.RemoveAll(prefs)
+			}
+		}
 	}
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
