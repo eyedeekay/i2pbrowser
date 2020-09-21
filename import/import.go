@@ -83,13 +83,37 @@ func Main() {
 	}
 	chromium := flag.Bool("chromium", false, "use a chromium-based browser instead of a firefox-based browser.")
 	flag.Parse()
-	ARGS = append(ARGS, flag.Args()...)
+	args := flag.Args()
+	userdir := UserDir
+	for _, arg := range args {
+		if arg == "--app" {
+			UserDir = filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps")
+			err := os.MkdirAll(filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps", "chrome"), 0755)
+			if err != nil {
+				UserDir = userdir
+				log.Fatal(err)
+			}
+			prefs := filepath.Join(UserDir, "chrome/userChrome.css")
+			if _, err := os.Stat(prefs); os.IsNotExist(err) {
+				if err := ioutil.WriteFile(prefs, []byte(APPCHROME), 0644); err == nil {
+					log.Println("wrote", prefs)
+				} else {
+					UserDir = userdir
+					log.Fatal(err)
+				}
+			}
+		} else {
+			ARGS = append(ARGS, arg)
+		}
+	}
+	//	ARGS = append(ARGS, flag.Args()...)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	if runtime.GOOS == "linux" {
 		if !*chromium {
 			if os.Getenv("FIREFOX_BIN") == "" {
 				if err := gingershrew.UnpackTBZ(GingerDir); err != nil {
+					UserDir = userdir
 					log.Fatal("Error unpacking embedded browser")
 				} else {
 					os.Setenv("LD_LIBRARY_PATH", filepath.Join(GingerDir, "lib/x86_64-linux-gnu")+","+filepath.Join(GingerDir, "usr/lib/x86_64-linux-gnu"))
@@ -118,6 +142,7 @@ func Main() {
 	} else {
 		chromiumMain()
 	}
+	UserDir = userdir
 }
 
 func MainNoEmbeddedStuff(args []string) {
@@ -143,7 +168,7 @@ func MainNoEmbeddedStuff(args []string) {
 				}
 			}
 		} else {
-			ARG = append(ARGS, arg)
+			ARGS = append(ARGS, arg)
 		}
 	}
 	chromium := false
