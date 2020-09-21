@@ -232,19 +232,14 @@ user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 `
 
 var APPCHROME = `
-@namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); /* only needed once */
+@namespace html url("http://www.w3.org/1999/xhtml");
 
-#navigator-toolbox {
-    height: 0px !important;
-    min-height: 0px !important;
-    overflow: hidden !important;
+#TabsToolbar, #PersonalToolbar, #PanelUI-Button, #PanelUI-menu-button, #star-button, #forward-button, #home-button, #bookmarks-toolbar-button, #library-button, #sidebar-button, #pocket-button, #fxa-toolbar-menu-button, #reader-mode-button, #identity-icon {
+  visibility: collapse;
 }
 
-#navigator-toolbox:focus,
-#navigator-toolbox:focus-within,
-#navigator-toolbox:active {
-    height: auto !important;
-}
+#urlbar-background {background-color: black !important;} 
 `
 
 var EXTENSIONPREFS = `{}`
