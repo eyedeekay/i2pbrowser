@@ -142,12 +142,11 @@ func MainNoEmbeddedStuff(args []string) {
 					log.Fatal(err)
 				}
 			}
+		} else {
+			ARG = append(ARGS, arg)
 		}
 	}
 	chromium := false
-	if args != nil {
-		ARGS = append(ARGS, args...)
-	}
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
