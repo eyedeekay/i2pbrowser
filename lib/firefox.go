@@ -111,36 +111,36 @@ func FirefoxLaunch() {
 		}
 	}*/
 	if firstrun {
-		_, ERROR := SecureExtendedFirefox(UserDir, false, EXTENSIONS, EXTENSIONHASHES, ARGS...)
+		FIREFOX, ERROR := SecureExtendedFirefox(UserDir, false, EXTENSIONS, EXTENSIONHASHES, ARGS...)
 		if ERROR != nil {
 			log.Fatal(ERROR)
 		}
-		//		defer FIREFOX.Close()
-		//<-FIREFOX.Done()
+		<-FIREFOX.Done()
+		defer FIREFOX.Close()
+
 	} else {
-		_, ERROR := BasicFirefox(UserDir, false, ARGS...)
+		FIREFOX, ERROR := BasicFirefox(UserDir, false, ARGS...)
 		if ERROR != nil {
 			log.Fatal(ERROR)
 		}
-		//<-FIREFOX.Done()
-		//		defer FIREFOX.Close()
+		defer FIREFOX.Close()
 
-		/*		sigs := make(chan os.Signal, 1)
-				done := make(chan bool, 1)
+		sigs := make(chan os.Signal, 1)
+		done := make(chan bool, 1)
 
-				signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+		signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 
-				go func() {
-					sig := <-sigs
-					fmt.Println()
-					fmt.Println(sig)
-					done <- true
-				}()
+		go func() {
+			sig := <-sigs
+			fmt.Println()
+			fmt.Println(sig)
+			done <- true
+		}()
 
-				fmt.Println("awaiting signal")
-				<-done
-				fmt.Println("exiting")
-				<-FIREFOX.Done()*/
+		fmt.Println("awaiting signal")
+		<-done
+		fmt.Println("exiting")
+		<-FIREFOX.Done()
 	}
 }
 

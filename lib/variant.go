@@ -235,11 +235,29 @@ var APPCHROME = `
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); /* only needed once */
 @namespace html url("http://www.w3.org/1999/xhtml");
 
-#TabsToolbar, #PersonalToolbar, #PanelUI-Button, #PanelUI-menu-button, #star-button, #forward-button, #home-button, #bookmarks-toolbar-button, #library-button, #sidebar-button, #pocket-button, #fxa-toolbar-menu-button, #reader-mode-button, #identity-icon {
+#TabsToolbar { height: 25px !important; }
+
+#PersonalToolbar {height: 5px !important;}
+
+#PersonalToolbar, #PanelUI-Button, #PanelUI-menu-button, #star-button, #forward-button, #home-button, #bookmarks-toolbar-button, #library-button, #sidebar-button, #pocket-button, #fxa-toolbar-menu-button, #reader-mode-button, #identity-icon {
   visibility: collapse;
 }
 
 #urlbar-background {background-color: black !important;} 
+
+/* Remove back button circle */
+#back-button:not(:hover),
+#back-button:not(:hover) > .toolbarbutton-icon {
+background: transparent !important;
+border: none !important;
+box-shadow: none !important;
+}
+
+#back-button:hover,
+#back-button:hover > .toolbarbutton-icon {
+border: none !important;
+border-radius: 2px !important;
+}   
 `
 
 var EXTENSIONPREFS = `{}`
