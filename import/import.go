@@ -150,9 +150,10 @@ func MainNoEmbeddedStuff(args []string) {
 		log.Fatal(err)
 	}
 	userdir := UserDir
+	apparg := false
 	for _, arg := range args {
-		UserDir = filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps")
 		if arg == "--app" {
+			UserDir = filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps")
 			err := os.MkdirAll(filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps", "chrome"), 0755)
 			if err != nil {
 				UserDir = userdir
@@ -167,9 +168,13 @@ func MainNoEmbeddedStuff(args []string) {
 					log.Fatal(err)
 				}
 			}
+			apparg = true
 		} else {
 			ARGS = append(ARGS, arg)
 		}
+	}
+	if !apparg {
+		UserDir = userdir
 	}
 	chromium := false
 	ctx, cancel := context.WithCancel(context.Background())

@@ -4,7 +4,7 @@ GO111MODULE=on
 
 BIN_NAME=i2pbrowser
 
-EXT_VERSION=0.73
+EXT_VERSION=0.78
 SNOW_VERSION=0.2.2
 UMAT_VERSION=1.25.2
 UBLO_VERSION=1.4.0
@@ -40,7 +40,6 @@ fmt:
 		lib/variantextensions.go
 	gofmt -w -s \
 		import/chromium.go \
-		import/extensions.go \
 		import/firefox.go \
 		import/httptunnel.go \
 		import/import.go
