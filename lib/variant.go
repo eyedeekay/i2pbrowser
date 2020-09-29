@@ -229,6 +229,13 @@ user_pref("media.peerconnection.default_iceservers", {“iceServers”: [{“url
 
 // PREF: re-enable crome/userChrome.css
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+
+user_pref("extensions.autoDisableScopes", 14);
+user_pref("extensions.getAddons.cache.enabled", false);
+user_pref("extensions.getAddons.showPane", false);
+user_pref("extensions.pocket.enabled", false);
+user_pref("extensions.screenshots.disabled", true);
+user_pref("extensions.webservice.discoverURL", "");
 `
 
 var APPCHROME = `
