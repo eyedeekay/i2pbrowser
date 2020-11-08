@@ -9,15 +9,17 @@ SNOW_VERSION=`amo-version -v -n torproject-snowflake`
 UMAT_VERSION=`amo-version -v -n umatrix`
 UBLO_VERSION=`amo-version -v -n ublock-origin`
 NOSS_VERSION=`amo-version -v -n noscript`
-ZERO_VERSION=v1.17
-ZERO_VERSION_B=`echo $(ZERO_VERSION) | tr -d 'v.'`
-LAST_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).097
-LAUNCH_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).098
+ZERO_VERSION=`./get_latest_release.sh "i2p-zero/i2p-zero"`
+ZERO_VERSION_B=`./get_latest_release.sh "i2p-zero/i2p-zero" | tr -d 'v.'`
+PREV_VERSION=.097
+PROD_VERSION=.098
+LAST_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).$(PREV_VERSION)
+LAUNCH_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION)$(PROD_VERSION)
 
 GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
 
 echo:
-	echo $(LAUNCH_VERSION)
+	echo $(LAUNCH_VERSION) $(ZERO_VERSION) $(EXT_VERSION) $(PROD_VERSION)
 
 extensions.go:
 	@echo "//+build generate" | tee extensions.go
