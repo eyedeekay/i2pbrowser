@@ -4,11 +4,11 @@ GO111MODULE=on
 
 BIN_NAME=i2pbrowser
 
-EXT_VERSION=0.78
-SNOW_VERSION=0.2.2
-UMAT_VERSION=1.25.2
-UBLO_VERSION=1.4.0
-NOSS_VERSION=11.0.23
+EXT_VERSION=`amo-version -v`
+SNOW_VERSION=`amo-version -v -n torproject-snowflake`
+UMAT_VERSION=`amo-version -v -n umatrix`
+UBLO_VERSION=`amo-version -v -n ublock-origin`
+NOSS_VERSION=`amo-version -v -n noscript`
 ZERO_VERSION=v1.17
 ZERO_VERSION_B=`echo $(ZERO_VERSION) | tr -d 'v.'`
 LAST_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).097
@@ -18,6 +18,22 @@ GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
 
 echo:
 	echo $(LAUNCH_VERSION)
+
+extensions.go:
+	@echo "//+build generate" | tee extensions.go
+	@echo "" | tee -a extensions.go
+	@echo "package main" | tee -a extensions.go
+	@echo "" | tee -a extensions.go
+	@echo "/*" | tee -a extensions.go
+	@echo "Released under the The MIT License (MIT)" | tee -a extensions.go
+	@echo "see ./LICENSE" | tee -a extensions.go
+	@echo "*/" | tee -a extensions.go
+	@echo "var VERSION = \"$(EXT_VERSION)\"" | tee -a extensions.go
+	@echo "var SNOW_VERSION = \"$(SNOW_VERSION)\"" | tee -a extensions.go
+	@echo "var UMAT_VERSION = \"$(UMAT_VERSION)\"" | tee -a extensions.go
+	@echo "var UBLO_VERSION = \"$(UBLO_VERSION)\"" | tee -a extensions.go
+	@echo "var NOSS_VERSION = \"$(NOSS_VERSION)\"" | tee -a extensions.go
+	@echo 
 
 build:
 	go build $(GO_COMPILER_OPTS)
@@ -50,7 +66,7 @@ sum:
 	sha256sum 'ifox/{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi'
 	sha256sum ifox/uBlock0@raymondhill.net.xpi
 	sha256sum ifox/uMatrix@raymondhill.net.xpi
-	#sha256sum 'ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi'
+	sha256sum 'ifox/{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi'
 
 all: pure variant
 

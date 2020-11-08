@@ -39,27 +39,25 @@ var manifest = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 var pureExtensions = `// +build !variant
 
-package main
+package i2pbrowser
 
 var EXTENSIONS = []string{
 	"i2ppb@eyedeekay.github.io.xpi",
 	"uBlock0@raymondhill.net.xpi",
-	"uMatrix@raymondhill.net.xpi",
+	"{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi",
 }
 var EXTENSIONHASHES = []string{
 `
 
 var variantExtensions = `// +build variant
 
-package main
-
-var NOM = "variant"
+package i2pbrowser
 
 var EXTENSIONS = []string{
 	"i2ppb@eyedeekay.github.io.xpi",
 	"{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi",
 	"uBlock0@raymondhill.net.xpi",
-	"uMatrix@raymondhill.net.xpi",
+	"{73a6fe31-595d-460b-a920-fcc0f8843232}.xpi",
 }
 var EXTENSIONHASHES = []string{
 `
@@ -68,11 +66,13 @@ var i2ppbHash = ""
 var snowflakeHash = ""
 var ublockHash = ""
 var umatrixHash = ""
+var nssHash = ""
 
 var i2ppb = []string{
 	"i2ppb@eyedeekay.github.io.xpi",
-	"https://github.com/eyedeekay/I2P-in-Private-Browsing-Mode-Firefox/releases/download/",
+	"https://addons.mozilla.org/firefox/downloads/file/3674169/",
 	VERSION,
+	"i2ppb",
 }
 var snowflake = []string{
 	"{b11bea1f-a888-4332-8d8a-cec2be7d24b9}.xpi",
@@ -104,18 +104,18 @@ func variantFile() error {
 	value += "\t\"" + i2ppbHash + "\",\n"
 	value += "\t\"" + snowflakeHash + "\",\n"
 	value += "\t\"" + ublockHash + "\",\n"
-	value += "\t\"" + umatrixHash + "\",\n"
+	value += "\t\"" + nssHash + "\",\n"
 	value += "}\n"
-	return ioutil.WriteFile("variantextensions.go", []byte(value), 0644)
+	return ioutil.WriteFile("lib/variantextensions.go", []byte(value), 0644)
 }
 
 func pureFile() error {
 	value := pureExtensions
 	value += "\t\"" + i2ppbHash + "\",\n"
 	value += "\t\"" + ublockHash + "\",\n"
-	value += "\t\"" + umatrixHash + "\",\n"
+	value += "\t\"" + nssHash + "\",\n"
 	value += "}\n"
-	return ioutil.WriteFile("pureextensions.go", []byte(value), 0644)
+	return ioutil.WriteFile("lib/pureextensions.go", []byte(value), 0644)
 }
 
 func sha256sum(path string) (string, error) {
@@ -149,16 +149,14 @@ func fetch() error {
 	} else {
 		snowflakeHash = tmp
 	}
-	/*
-		//	if err := get(noscript); err != nil {
-		//		return err
-		//	}
-		//	if tmp, err := sha256sum(noscript[0]); err != nil {
-		//		return err
-		//	}else{
-		//		i2ppbHash = tmp
-		//	}
-	*/
+	if err := get(noscript); err != nil {
+		return err
+	}
+	if tmp, err := sha256sum(noscript[0]); err != nil {
+		return err
+	} else {
+		i2ppbHash = tmp
+	}
 	if err := get(umatrix); err != nil {
 		return err
 	}
@@ -166,6 +164,14 @@ func fetch() error {
 		return err
 	} else {
 		umatrixHash = tmp
+	}
+	if err := get(noscript); err != nil {
+		return err
+	}
+	if tmp, err := sha256sum(noscript[0]); err != nil {
+		return err
+	} else {
+		nssHash = tmp
 	}
 	if err := get(ublock); err != nil {
 		return err

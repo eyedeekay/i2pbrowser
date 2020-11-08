@@ -7,6 +7,8 @@ Released under the The MIT License (MIT)
 see ./LICENSE
 */
 
+var NOM = "variant"
+
 var ARGS = []string{
 	/*"--example-arg",*/
 }
