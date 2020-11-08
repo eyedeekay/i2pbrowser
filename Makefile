@@ -33,7 +33,7 @@ extensions.go:
 	@echo "var UMAT_VERSION = \"$(UMAT_VERSION)\"" | tee -a extensions.go
 	@echo "var UBLO_VERSION = \"$(UBLO_VERSION)\"" | tee -a extensions.go
 	@echo "var NOSS_VERSION = \"$(NOSS_VERSION)\"" | tee -a extensions.go
-	@echo 
+	@echo "" | tee -a extensions.go
 
 build:
 	go build $(GO_COMPILER_OPTS)
