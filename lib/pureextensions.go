@@ -1,6 +1,6 @@
 // +build !variant
 
-package i2pbrowser
+package i2pfirefox
 
 var EXTENSIONS = []string{
 	"i2ppb@eyedeekay.github.io.xpi",

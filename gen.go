@@ -39,7 +39,7 @@ var manifest = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 var pureExtensions = `// +build !variant
 
-package i2pbrowser
+package i2pfirefox
 
 var EXTENSIONS = []string{
 	"i2ppb@eyedeekay.github.io.xpi",
@@ -51,7 +51,7 @@ var EXTENSIONHASHES = []string{
 
 var variantExtensions = `// +build variant
 
-package i2pbrowser
+package i2pfirefox
 
 var EXTENSIONS = []string{
 	"i2ppb@eyedeekay.github.io.xpi",
