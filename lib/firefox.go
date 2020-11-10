@@ -104,7 +104,7 @@ func FirefoxLaunch() {
 	}
 	bookmarks := filepath.Join(UserDir, "/bookmarks.html")
 	if _, err := os.Stat(bookmarks); os.IsNotExist(err) {
-		if err := ioutil.WriteFile(bookmarks, []byte(PREFS), 0644); err == nil {
+		if err := ioutil.WriteFile(bookmarks, []byte(GenerateDefaultBookmarks(UserDir, "ircd.yml")), 0644); err == nil {
 			log.Println("wrote", bookmarks)
 		} else {
 			log.Fatal(err)
@@ -156,7 +156,7 @@ func FirefoxMain() {
 	}
 	bookmarks := filepath.Join(UserDir, "/bookmarks.html")
 	if _, err := os.Stat(bookmarks); os.IsNotExist(err) {
-		if err := ioutil.WriteFile(bookmarks, []byte(PREFS), 0644); err == nil {
+		if err := ioutil.WriteFile(bookmarks, []byte(GenerateDefaultBookmarks(UserDir, "ircd.yml")), 0644); err == nil {
 			log.Println("wrote", bookmarks)
 		} else {
 			log.Fatal(err)

@@ -22,8 +22,8 @@ import (
 
 	"github.com/eyedeekay/GingerShrew/import"
 	. "github.com/eyedeekay/go-fpw"
-	. "github.com/eyedeekay/i2pbrowser/lib"
 	"github.com/eyedeekay/i2p-traymenu/irc"
+	. "github.com/eyedeekay/i2pbrowser/lib"
 	"github.com/eyedeekay/zerobundle"
 )
 
@@ -87,7 +87,7 @@ func Main() {
 	flag.Parse()
 	args := flag.Args()
 	userdir := UserDir
-  if *chat {
+	if *chat {
 		go trayirc.IRC(userdir)
 		go trayirc.IRCServerMain(false, false, userdir, "ircd.yml")
 		defer trayirc.Close(userdir, "ircd.yml")
