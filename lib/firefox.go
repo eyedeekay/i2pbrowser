@@ -102,14 +102,14 @@ func FirefoxLaunch() {
 			log.Fatal(err)
 		}
 	}
-	/*prefs := filepath.Join(UserDir, "/prefs.js")
-	if _, err := os.Stat(prefs); os.IsNotExist(err) {
-		if err := ioutil.WriteFile(prefs, []byte(PREFS), 0644); err == nil {
-			log.Println("wrote", prefs)
+	bookmarks := filepath.Join(UserDir, "/bookmarks.html")
+	if _, err := os.Stat(bookmarks); os.IsNotExist(err) {
+		if err := ioutil.WriteFile(bookmarks, []byte(PREFS), 0644); err == nil {
+			log.Println("wrote", bookmarks)
 		} else {
 			log.Fatal(err)
 		}
-	}*/
+	}
 	if firstrun {
 		FIREFOX, ERROR := SecureExtendedFirefox(UserDir, false, EXTENSIONS, EXTENSIONHASHES, ARGS...)
 		if ERROR != nil {
@@ -154,14 +154,14 @@ func FirefoxMain() {
 			log.Fatal(err)
 		}
 	}
-	/*prefs := filepath.Join(UserDir, "/prefs.js")
-	if _, err := os.Stat(prefs); os.IsNotExist(err) {
-		if err := ioutil.WriteFile(prefs, []byte(PREFS), 0644); err == nil {
-			log.Println("wrote", prefs)
+	bookmarks := filepath.Join(UserDir, "/bookmarks.html")
+	if _, err := os.Stat(bookmarks); os.IsNotExist(err) {
+		if err := ioutil.WriteFile(bookmarks, []byte(PREFS), 0644); err == nil {
+			log.Println("wrote", bookmarks)
 		} else {
 			log.Fatal(err)
 		}
-	}*/
+	}
 	if firstrun {
 		FIREFOX, ERROR := SecureExtendedFirefox(UserDir, false, EXTENSIONS, EXTENSIONHASHES, ARGS...)
 		if ERROR != nil {

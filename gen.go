@@ -149,14 +149,6 @@ func fetch() error {
 	} else {
 		snowflakeHash = tmp
 	}
-	if err := get(noscript); err != nil {
-		return err
-	}
-	if tmp, err := sha256sum(noscript[0]); err != nil {
-		return err
-	} else {
-		i2ppbHash = tmp
-	}
 	if err := get(umatrix); err != nil {
 		return err
 	}

@@ -23,6 +23,7 @@ import (
 	"github.com/eyedeekay/GingerShrew/import"
 	. "github.com/eyedeekay/go-fpw"
 	. "github.com/eyedeekay/i2pbrowser/lib"
+	"github.com/eyedeekay/i2p-traymenu/irc"
 	"github.com/eyedeekay/zerobundle"
 )
 
@@ -82,9 +83,15 @@ func Main() {
 		log.Fatal(err)
 	}
 	chromium := flag.Bool("chromium", false, "use a chromium-based browser instead of a firefox-based browser.")
+	chat := flag.Bool("chat", true, "Start an IRC client and configure it to use with I2P")
 	flag.Parse()
 	args := flag.Args()
 	userdir := UserDir
+  if *chat {
+		go trayirc.IRC(userdir)
+		go trayirc.IRCServerMain(false, false, userdir, "ircd.yml")
+		defer trayirc.Close(userdir, "ircd.yml")
+	}
 	for _, arg := range args {
 		if arg == "--app" {
 			UserDir = filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps")

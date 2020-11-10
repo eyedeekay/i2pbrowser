@@ -42,7 +42,7 @@ build:
 
 assets: fmt lib/assets.go
 
-gen:
+gen: extensions.go
 	go run $(GO_COMPILER_OPTS) -tags generate gen.go extensions.go
 
 clean: fmt
