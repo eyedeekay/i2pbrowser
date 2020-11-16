@@ -252,6 +252,8 @@ github.com/eyedeekay/di2prc v0.0.0-20200915045223-cf4d4f734cda/go.mod h1:inSW1lX
 github.com/eyedeekay/eephttpd v0.0.0-20190903000420-52f5a8485a4e/go.mod h1:wFPQsNBnY95LkuujFEZARo7slafRwoF0D97FFHBoZro=
 github.com/eyedeekay/eris v1.6.7-0.20201110004450-ebfb181a5b89 h1:ZOHKUbBz14nibpzH6/YxGMUn+vyP6VECTzAqMjtmh6k=
 github.com/eyedeekay/eris v1.6.7-0.20201110004450-ebfb181a5b89/go.mod h1:q/KlB67UruDyQYGBdpxsA7S96uXVdFdHgClzZ8FgqLE=
+github.com/eyedeekay/eris v1.6.7-0.20201112224608-8a0173f2ea67 h1:KnUv9caKLrAsJO41flM/HvyjPLSM4nl9pSerpm75Ykw=
+github.com/eyedeekay/eris v1.6.7-0.20201112224608-8a0173f2ea67/go.mod h1:q/KlB67UruDyQYGBdpxsA7S96uXVdFdHgClzZ8FgqLE=
 github.com/eyedeekay/go-ccw v0.0.0-20200403222455-d0e01222fd2a h1:zPI9ngyid7Wr92EHYanSOee6z0rWSlyKPt1nnOmZCu4=
 github.com/eyedeekay/go-ccw v0.0.0-20200403222455-d0e01222fd2a/go.mod h1:k3EtNXTNE8UHnYqq/Ny7QiVPZIFtdiCuckEPT0qkR14=
 github.com/eyedeekay/go-fpw v0.0.0-20200512022837-c8b4dcdc74d4 h1:fZggjpJu/JsYTCn1BjT1SICuEcab8Cyvz3BwI9aDIUw=

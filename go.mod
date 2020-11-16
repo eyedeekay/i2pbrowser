@@ -19,4 +19,4 @@ require (
 
 replace github.com/zserge/lorca => github.com/eyedeekay/lorca v0.1.9-0.20200403221704-ea2ffcadfc1b
 
-replace github.com/prologic/eris v1.6.6 => github.com/eyedeekay/eris v1.6.7-0.20201110004450-ebfb181a5b89
+replace github.com/prologic/eris v1.6.6 => github.com/eyedeekay/eris v1.6.7-0.20201112224608-8a0173f2ea67
