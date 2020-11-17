@@ -11,8 +11,8 @@ UBLO_VERSION=`amo-version -v -n ublock-origin`
 NOSS_VERSION=`amo-version -v -n noscript`
 ZERO_VERSION=`./get_latest_release.sh "i2p-zero/i2p-zero"`
 ZERO_VERSION_B=`./get_latest_release.sh "i2p-zero/i2p-zero" | tr -d 'v.'`
-PREV_VERSION=.097
-PROD_VERSION=.098
+PREV_VERSION=.098
+PROD_VERSION=.099
 LAST_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).$(PREV_VERSION)
 LAUNCH_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION)$(PROD_VERSION)
 
