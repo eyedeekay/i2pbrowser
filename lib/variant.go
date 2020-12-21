@@ -238,6 +238,10 @@ user_pref("extensions.getAddons.showPane", false);
 user_pref("extensions.pocket.enabled", false);
 user_pref("extensions.screenshots.disabled", true);
 user_pref("extensions.webservice.discoverURL", "");
+user_pref("dom.security.https_only_mode", false);
+user_pref("keyword.enabled", false);
+user_pref("extensions.allowPrivateBrowsingByDefault", true);
+user_pref("extensions.PrivateBrowsing.notification", false);
 `
 
 var APPCHROME = `
