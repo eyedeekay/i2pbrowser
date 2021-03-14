@@ -4,11 +4,11 @@ GO111MODULE=on
 
 BIN_NAME=i2pbrowser
 
-EXT_VERSION=`amo-version -v`
-SNOW_VERSION=`amo-version -v -n torproject-snowflake`
-UMAT_VERSION=`amo-version -v -n umatrix`
-UBLO_VERSION=`amo-version -v -n ublock-origin`
-NOSS_VERSION=`amo-version -v -n noscript`
+EXT_VERSION=`./amo-version.sh i2p-in-private-browsing`
+SNOW_VERSION=`./amo-version.sh torproject-snowflake`
+UMAT_VERSION=`./amo-version.sh umatrix`
+UBLO_VERSION=`./amo-version.sh ublock-origin`
+NOSS_VERSION=`./amo-version.sh noscript`
 ZERO_VERSION=`./get_latest_release.sh "i2p-zero/i2p-zero"`
 ZERO_VERSION_B=`./get_latest_release.sh "i2p-zero/i2p-zero" | tr -d 'v.'`
 PREV_VERSION=.098
