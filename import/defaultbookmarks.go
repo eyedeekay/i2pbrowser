@@ -1,12 +1,17 @@
-package i2pfirefox
+package i2pbrowser
 
 import (
-  "github.com/eyedeekay/i2p-traymenu/irc"
+	"log"
 )
 
 func GenerateDefaultBookmarks(dir, configfile string) string {
-  trayirc.OutputServerConfigFile(dir, configfile)
-  return `<!DOCTYPE NETSCAPE-Bookmark-file-1>
+	_, err := brb.OutputServerConfigFile()
+	if err != nil {
+		log.Fatalf("Config file generation error, %s", err)
+	}
+	for len(brb.OutputAutoLink()) > len("http://localhost:7669/connect?host=?name=invisibleirc") {
+	}
+	return `<!DOCTYPE NETSCAPE-Bookmark-file-1>
   <!-- This is an automatically generated file.
        It will be read and overwritten.
        DO NOT EDIT! -->
@@ -25,9 +30,14 @@ func GenerateDefaultBookmarks(dir, configfile string) string {
           <DD>Anonymous peer-to-peer distributed communication layer built with open source tools and designed to run any traditional Internet service such as email, IRC or web hosting.
           <DT><A HREF="http://127.0.0.1:7669/connect" ADD_DATE="1538511080" LAST_MODIFIED="1538511080">I2P IRC Chat</A>
           <DD>Connect to the I2P IRC chatrooms to chat with other i2p people
-          <DT><A HREF="` + trayirc.OutputAutoLink(dir, "iirc") + `ADD_DATE="1538511080" LAST_MODIFIED="1538511080">Personal IRC Chat</A>
+          <DT><A HREF="` + brb.OutputAutoLink() + `ADD_DATE="1538511080" LAST_MODIFIED="1538511080">Personal IRC Chat</A>
           <DD>Host a group chat with other i2p people, from your own device
       </DL><p>
-  </DL>`
-}
+  </DL>
+`
+	/**
 
+
+
+	 */
+}

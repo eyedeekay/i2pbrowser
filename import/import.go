@@ -9,7 +9,6 @@ package i2pbrowser
 
 import (
 	"context"
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -22,7 +21,6 @@ import (
 
 	"github.com/eyedeekay/GingerShrew/import"
 	. "github.com/eyedeekay/go-fpw"
-	"github.com/eyedeekay/i2p-traymenu/irc"
 	. "github.com/eyedeekay/i2pbrowser/lib"
 	"github.com/eyedeekay/zerobundle"
 )
@@ -78,20 +76,19 @@ func proxyCheck() bool {
 	return true
 }
 
-func Main() {
+func Main(chromium, chat bool, rundir string, args []string) {
 	if err := hello(); err != nil {
 		log.Fatal(err)
 	}
-	chromium := flag.Bool("chromium", false, "use a chromium-based browser instead of a firefox-based browser.")
-	chat := flag.Bool("chat", true, "Start an IRC client and configure it to use with I2P")
-	flag.Parse()
-	args := flag.Args()
-	userdir := UserDir
-	if *chat {
-		go trayirc.IRC(userdir)
-		go trayirc.IRCServerMain(false, false, userdir, "ircd.yml")
-		defer trayirc.Close(userdir, "ircd.yml")
+	if rundir != "" {
+		UserDir = filepath.Join(UserFind(rundir), "i2p", "firefox-profiles", NOM)
+		GingerDir = filepath.Join(UserFind(rundir), "i2p", "rhizome")
+		err := os.Setenv("RHZ_PROFILE_OVERRIDE", rundir)
+		if err != nil {
+			log.Fatal("Unable to set profile directory.", err)
+		}
 	}
+	userdir := UserDir
 	for _, arg := range args {
 		if arg == "--app" {
 			UserDir = filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps")
@@ -117,21 +114,26 @@ func Main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	if runtime.GOOS == "linux" {
-		if !*chromium {
+		if !chromium {
 			if os.Getenv("FIREFOX_BIN") == "" {
 				if err := gingershrew.UnpackTBZ(GingerDir); err != nil {
 					UserDir = userdir
 					log.Fatal("Error unpacking embedded browser")
 				} else {
-					os.Setenv("LD_LIBRARY_PATH", filepath.Join(GingerDir, "lib/x86_64-linux-gnu")+","+filepath.Join(GingerDir, "usr/lib/x86_64-linux-gnu"))
-					log.Println("LD_LIBRARY_PATH", filepath.Join(GingerDir, "lib/x86_64-linux-gnu")+","+filepath.Join(GingerDir, "usr/lib/x86_64-linux-gnu"))
+					libpath := os.Getenv("LD_LIBRARY_PATH")
+					if libpath != "" {
+						libpath = ":" + libpath
+					}
+					preloadpath := filepath.Join(GingerDir, "lib/x86_64-linux-gnu") + ":" + filepath.Join(GingerDir, "gingershrew") + ":" + filepath.Join(GingerDir, "gingershrew/gtk2") + ":" + filepath.Join(GingerDir, "gingershrew/gmp-clearkey/0.1/") + libpath
+					os.Setenv("LD_LIBRARY_PATH", preloadpath+libpath)
+					log.Println("LD_LIBRARY_PATH", preloadpath+libpath)
 					os.Setenv("FIREFOX_BIN", filepath.Join(GingerDir, "gingershrew", "gingershrew"))
 				}
 			}
 		}
 	} else {
 		if LocateFirefox() == "" {
-			*chromium = true
+			chromium = true
 		}
 	}
 	if err := WriteI2CPConf(); err != nil {
@@ -144,7 +146,10 @@ func Main() {
 	if !proxyCheck() {
 		go proxyMain(ctx)
 	}
-	if !*chromium {
+	if chat {
+		irc("7656", userdir, false)
+	}
+	if !chromium {
 		firefoxMain()
 	} else {
 		chromiumMain()

@@ -12,19 +12,29 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"os/signal"
+	//	"os/signal"
 	"path/filepath"
 	//	"strings"
-	"syscall"
+	//	"syscall"
 
 	. "github.com/eyedeekay/go-fpw"
 )
 
-func UserFind() string {
+func UserFind(override ...string) string {
 	if os.Geteuid() == 0 {
 		log.Fatal("Do not run this application as root!")
 	}
 	if un, err := os.UserHomeDir(); err == nil {
+		if len(override) > 0 {
+			un = override[0]
+			log.Println("--i2p-profile taking effect", un)
+		}
+		envoverride := os.Getenv("RHZ_PROFILE_OVERRIDE")
+		if envoverride != "" {
+			un = envoverride
+			log.Println("RHZ_PROFILE_OVERRIDE taking priority", un)
+		}
+
 		os.MkdirAll(filepath.Join(un, "i2p"), 0755)
 		os.MkdirAll(filepath.Join(un, "i2p", "opt"), 0755)
 		os.MkdirAll(filepath.Join(un, "i2p", "firefox-profiles", NOM), 0755)
@@ -102,22 +112,16 @@ func FirefoxLaunch() {
 			log.Fatal(err)
 		}
 	}
-	bookmarks := filepath.Join(UserDir, "/bookmarks.html")
-	if _, err := os.Stat(bookmarks); os.IsNotExist(err) {
-		if err := ioutil.WriteFile(bookmarks, []byte(GenerateDefaultBookmarks(UserDir, "ircd.yml")), 0644); err == nil {
-			log.Println("wrote", bookmarks)
-		} else {
-			log.Fatal(err)
-		}
-	}
 	if firstrun {
 		FIREFOX, ERROR := SecureExtendedFirefox(UserDir, false, EXTENSIONS, EXTENSIONHASHES, ARGS...)
 		if ERROR != nil {
 			log.Fatal(ERROR)
 		}
-		<-FIREFOX.Done()
 		defer FIREFOX.Close()
 
+		fmt.Println("exiting when browser window closes")
+		<-FIREFOX.Done()
+		fmt.Println(FIREFOX.Log())
 	} else {
 		FIREFOX, ERROR := BasicFirefox(UserDir, false, ARGS...)
 		if ERROR != nil {
@@ -125,22 +129,9 @@ func FirefoxLaunch() {
 		}
 		defer FIREFOX.Close()
 
-		sigs := make(chan os.Signal, 1)
-		done := make(chan bool, 1)
-
-		signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
-
-		go func() {
-			sig := <-sigs
-			fmt.Println()
-			fmt.Println(sig)
-			done <- true
-		}()
-
-		fmt.Println("awaiting signal")
-		<-done
-		fmt.Println("exiting")
+		fmt.Println("exiting when browser window closes")
 		<-FIREFOX.Done()
+		fmt.Println(FIREFOX.Log())
 	}
 }
 
@@ -154,21 +145,16 @@ func FirefoxMain() {
 			log.Fatal(err)
 		}
 	}
-	bookmarks := filepath.Join(UserDir, "/bookmarks.html")
-	if _, err := os.Stat(bookmarks); os.IsNotExist(err) {
-		if err := ioutil.WriteFile(bookmarks, []byte(GenerateDefaultBookmarks(UserDir, "ircd.yml")), 0644); err == nil {
-			log.Println("wrote", bookmarks)
-		} else {
-			log.Fatal(err)
-		}
-	}
 	if firstrun {
 		FIREFOX, ERROR := SecureExtendedFirefox(UserDir, false, EXTENSIONS, EXTENSIONHASHES, ARGS...)
 		if ERROR != nil {
 			log.Fatal(ERROR)
 		}
 		defer FIREFOX.Close()
+
+		fmt.Println("exiting when browser window closes")
 		<-FIREFOX.Done()
+		fmt.Println(FIREFOX.Log())
 	} else {
 		FIREFOX, ERROR := BasicFirefox(UserDir, false, ARGS...)
 		if ERROR != nil {
@@ -176,21 +162,8 @@ func FirefoxMain() {
 		}
 		defer FIREFOX.Close()
 
-		sigs := make(chan os.Signal, 1)
-		done := make(chan bool, 1)
-
-		signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
-
-		go func() {
-			sig := <-sigs
-			fmt.Println()
-			fmt.Println(sig)
-			done <- true
-		}()
-
-		fmt.Println("awaiting signal")
-		<-done
-		fmt.Println("exiting")
+		fmt.Println("exiting when browser window closes")
 		<-FIREFOX.Done()
+		fmt.Println(FIREFOX.Log())
 	}
 }

@@ -1,6 +1,14 @@
 
 export GO111MODULE=on
 GO111MODULE=on
+GONOPROXY=github.com/eyedeekay/GingerShrew/*,github.com/eyedeekay/zerobundle/*
+export GONOPROXY=github.com/eyedeekay/GingerShrew/*,github.com/eyedeekay/zerobundle/*
+#GOPROXY=https://goproxy.dev,direct"
+#export GOPROXY=https://goproxy.dev,direct
+GOPROXY=direct
+export GOPROXY=direct
+GONOSUMDB=github.com/eyedeekay/GingerShrew/*,github.com/eyedeekay/zerobundle/*
+export GONOSUMDB=github.com/eyedeekay/GingerShrew/*,github.com/eyedeekay/zerobundle/*
 
 BIN_NAME=i2pbrowser
 
@@ -16,9 +24,9 @@ PROD_VERSION=.099
 LAST_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).$(PREV_VERSION)
 LAUNCH_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION)$(PROD_VERSION)
 
-GO_COMPILER_OPTS = -a -tags netgo -ldflags '-w -extldflags "-static"'
+GO_COMPILER_OPTS = -a -tags netgo #-ldflags '-w -extldflags "-static"'
 
-echo:
+echo: fmt
 	echo $(LAUNCH_VERSION) $(ZERO_VERSION) $(EXT_VERSION) $(PROD_VERSION)
 
 extensions.go:
@@ -37,7 +45,7 @@ extensions.go:
 	@echo "var NOSS_VERSION = \"$(NOSS_VERSION)\"" | tee -a extensions.go
 	@echo "" | tee -a extensions.go
 
-build:
+build: echo deps
 	go build $(GO_COMPILER_OPTS)
 
 assets: fmt lib/assets.go
@@ -60,8 +68,16 @@ fmt:
 		import/chromium.go \
 		import/firefox.go \
 		import/httptunnel.go \
-		import/import.go
+		import/import.go \
+		import/defaultbookmarks.go
 
+deps: GingerShrew zerobundle
+
+GingerShrew:
+	git clone https://github.com/eyedeekay/GingerShrew
+
+zerobundle:
+	git clone https://github.com/eyedeekay/zerobundle -b $(ZERO_VERSION)
 
 sum:
 	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi

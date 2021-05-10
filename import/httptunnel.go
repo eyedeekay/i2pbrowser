@@ -9,6 +9,7 @@ import (
 	"github.com/eyedeekay/httptunnel"
 	"github.com/eyedeekay/httptunnel/multiproxy"
 	"github.com/eyedeekay/zerobundle"
+	"i2pgit.org/idk/zerocontrol"
 
 	"context"
 	"flag"
@@ -19,6 +20,7 @@ import (
 	"os"
 	"os/signal"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
 )
@@ -71,7 +73,54 @@ func WriteI2CPConf() error {
 	return nil
 }
 
+func loopbackInterface() string {
+	if runtime.GOOS != "windows" {
+		return "127.0.0.1"
+	}
+	ift, err := net.Interfaces()
+	if err != nil {
+		return "localhost"
+	}
+	log.Println("Searching for appropriate loopback interface")
+	for _, ifi := range ift {
+		if ifi.Flags&net.FlagLoopback != 0 && ifi.Flags&net.FlagUp != 0 {
+			log.Println("Searching", ifi.Name)
+			a, err := ifi.Addrs()
+			if err != nil {
+				return "localhost"
+			}
+			if !strings.Contains(a[0].String(), "::") {
+				return strings.Split(a[0].String(), "/")[0]
+			}
+		}
+	}
+	return "localhost"
+}
+
 func proxyMain(ctx context.Context) {
+	_, conn := zerocontrol.Available()
+	defer conn.Close()
+	if runtime.GOOS == "windows" {
+		conn.Write([]byte("http.create 4444\r\n"))
+	} else {
+		conn.Write([]byte("http.create 4444\n"))
+	}
+	i := 0
+	for {
+		proxyconn, err := net.Dial("tcp4", net.JoinHostPort(loopbackInterface(), "4444"))
+		if err != nil {
+			log.Println("Connecting error:", err)
+		}
+		if proxyconn != nil {
+			log.Println("Started HTTP Proxy.")
+			conn.Close()
+			return
+		}
+		i++
+		time.Sleep(time.Duration(5) * time.Second)
+	}
+	return
+
 	profiles := strings.Split(*watchProfiles, ",")
 
 	srv := &http.Server{
