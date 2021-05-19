@@ -19,7 +19,6 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/eyedeekay/GingerShrew/import"
 	. "github.com/eyedeekay/go-fpw"
 	. "github.com/eyedeekay/i2pbrowser/lib"
 	"github.com/eyedeekay/zerobundle"
@@ -113,28 +112,8 @@ func Main(chromium, chat bool, rundir string, args []string) {
 	//	ARGS = append(ARGS, flag.Args()...)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	if runtime.GOOS == "linux" {
-		if !chromium {
-			if os.Getenv("FIREFOX_BIN") == "" {
-				if err := gingershrew.UnpackTBZ(GingerDir); err != nil {
-					UserDir = userdir
-					log.Fatal("Error unpacking embedded browser")
-				} else {
-					libpath := os.Getenv("LD_LIBRARY_PATH")
-					if libpath != "" {
-						libpath = ":" + libpath
-					}
-					preloadpath := filepath.Join(GingerDir, "lib/x86_64-linux-gnu") + ":" + filepath.Join(GingerDir, "gingershrew") + ":" + filepath.Join(GingerDir, "gingershrew/gtk2") + ":" + filepath.Join(GingerDir, "gingershrew/gmp-clearkey/0.1/") + libpath
-					os.Setenv("LD_LIBRARY_PATH", preloadpath+libpath)
-					log.Println("LD_LIBRARY_PATH", preloadpath+libpath)
-					os.Setenv("FIREFOX_BIN", filepath.Join(GingerDir, "gingershrew", "gingershrew"))
-				}
-			}
-		}
-	} else {
-		if LocateFirefox() == "" {
-			chromium = true
-		}
+	if LocateFirefox() == "" {
+		chromium = true
 	}
 	if err := WriteI2CPConf(); err != nil {
 		log.Println(err)

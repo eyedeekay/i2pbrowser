@@ -3,7 +3,7 @@ module github.com/eyedeekay/i2pbrowser
 go 1.14
 
 require (
-	github.com/eyedeekay/GingerShrew v0.0.0-20210508032440-8cc02b7866b3
+//	github.com/eyedeekay/GingerShrew v0.0.0-20210508032440-8cc02b7866b3
 	github.com/eyedeekay/I2P-Configuration-for-Chromium v0.0.0-20200802063209-8973270c836e
 	github.com/eyedeekay/go-fpw v0.0.0-20210510061537-1b2dcea2a5f3
 	github.com/eyedeekay/httptunnel v0.0.0-20210508192603-23be3f2cdfaa
@@ -22,6 +22,6 @@ replace github.com/prologic/eris => github.com/prologic/eris v1.6.7-0.2021043003
 
 replace github.com/eyedeekay/zerobundle => ./zerobundle
 
-replace github.com/eyedeekay/GingerShrew => ./GingerShrew
+//replace github.com/eyedeekay/GingerShrew => ./GingerShrew
 
 replace github.com/khlieng/dispatch => github.com/khlieng/dispatch v0.6.5-0.20201210080608-721492cae225
