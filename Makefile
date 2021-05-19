@@ -17,6 +17,7 @@ SNOW_VERSION=`./amo-version.sh torproject-snowflake`
 UMAT_VERSION=`./amo-version.sh umatrix`
 UBLO_VERSION=`./amo-version.sh ublock-origin`
 NOSS_VERSION=`./amo-version.sh noscript`
+HTSV_VERSION=`./amo-version.sh https-everywhere`
 ZERO_VERSION=`./get_latest_release.sh "i2p-zero/i2p-zero"`
 ZERO_VERSION_B=`./get_latest_release.sh "i2p-zero/i2p-zero" | tr -d 'v.'`
 PREV_VERSION=.098
@@ -43,9 +44,10 @@ extensions.go:
 	@echo "var UMAT_VERSION = \"$(UMAT_VERSION)\"" | tee -a extensions.go
 	@echo "var UBLO_VERSION = \"$(UBLO_VERSION)\"" | tee -a extensions.go
 	@echo "var NOSS_VERSION = \"$(NOSS_VERSION)\"" | tee -a extensions.go
+	@echo "var HTSV_VERSION = \"$(HTSV_VERSION)\"" | tee -a extensions.go
 	@echo "" | tee -a extensions.go
 
-build: echo deps
+build: clean echo deps gen
 	go build $(GO_COMPILER_OPTS)
 
 assets: fmt lib/assets.go
@@ -54,7 +56,7 @@ gen: extensions.go
 	go run $(GO_COMPILER_OPTS) -tags generate gen.go extensions.go
 
 clean: fmt
-	rm -f $(BIN_NAME)*
+	rm -fr $(BIN_NAME)* ifox extensions.go
 
 fmt:
 	gofmt -w -s *.go
@@ -94,7 +96,7 @@ windows: fmt
 	GOOS=windows go build $(GO_COMPILER_OPTS) -o $(BIN_NAME).exe
 
 osx: fmt
-	GOOS=darwin go build $(GO_COMPILER_OPTS) -o $(BIN_NAME)-darwin
+	GOOS=darwin go build $(GO_COMPILER_OPTS) -o $(BIN_NAME)-osx
 
 linux: fmt
 	GOOS=linux go build $(GO_COMPILER_OPTS) -o $(BIN_NAME)
@@ -105,17 +107,17 @@ vwindows: fmt
 	GOOS=windows go build $(GO_COMPILER_OPTS) -tags variant -o $(BIN_NAME)-variant.exe
 
 vosx: fmt
-	GOOS=darwin go build $(GO_COMPILER_OPTS) -tags variant -o $(BIN_NAME)-variant-darwin
+	GOOS=darwin go build $(GO_COMPILER_OPTS) -tags variant -o $(BIN_NAME)-variant-osx
 
 vlinux: fmt
 	GOOS=linux go build $(GO_COMPILER_OPTS) -tags variant -o $(BIN_NAME)-variant
 
 sumwindows=`sha256sum $(BIN_NAME).exe`
 sumlinux=`sha256sum $(BIN_NAME)`
-sumdarwin=`sha256sum $(BIN_NAME)-darwin`
+sumdarwin=`sha256sum $(BIN_NAME)-osx`
 sumvwindows=`sha256sum $(BIN_NAME)-variant.exe`
 sumvlinux=`sha256sum $(BIN_NAME)-variant`
-sumvdarwin=`sha256sum $(BIN_NAME)-variant-darwin`
+sumvdarwin=`sha256sum $(BIN_NAME)-variant-osx`
 
 check:
 	echo "$(sumwindows)"
@@ -131,24 +133,24 @@ release:
 	sed -i "s|$(LAST_VERSION)|$(LAUNCH_VERSION)|g" Makefile
 	git commit -am "Make release version $(LAUNCH_VERSION)" && git push
 
-upload: upload-windows upload-darwin upload-linux
+upload: upload-windows upload-osx upload-linux
 
 upload-windows:
 	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumwindows)" -n "$(BIN_NAME).exe" -f "$(BIN_NAME).exe"
 
-upload-darwin:
-	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumdarwin)" -n "$(BIN_NAME)-darwin" -f "$(BIN_NAME)-darwin"
+upload-osx:
+	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumdarwin)" -n "$(BIN_NAME)-osx" -f "$(BIN_NAME)-osx"
 
 upload-linux:
 	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumlinux)" -n "$(BIN_NAME)" -f "$(BIN_NAME)"
 
-upload-variant: upload-variant-windows upload-variant-darwin upload-variant-linux
+upload-variant: upload-variant-windows upload-variant-osx upload-variant-linux
 
 upload-variant-windows:
 	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumvwindows)" -n "$(BIN_NAME)-variant.exe" -f "$(BIN_NAME)-variant.exe"
 
-upload-variant-darwin:
-	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumvdarwin)" -n "$(BIN_NAME)-variant-darwin" -f "$(BIN_NAME)-variant-darwin"
+upload-variant-osx:
+	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumvdarwin)" -n "$(BIN_NAME)-variant-osx" -f "$(BIN_NAME)-variant-osx"
 
 upload-variant-linux:
 	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumvlinux)" -n "$(BIN_NAME)-variant" -f "$(BIN_NAME)-variant"
@@ -161,13 +163,13 @@ release-pure:
 	make release; true
 	make linux upload-linux
 	make windows upload-windows
-	make osx upload-darwin
+	make osx upload-osx
 
 release-variant: 
 	make release; true
 	make vlinux upload-variant-linux
 	make vwindows upload-variant-windows
-	make vosx upload-variant-darwin
+	make vosx upload-variant-osx
 
 clean-release: clean release-pure release-variant
 

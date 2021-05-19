@@ -49,8 +49,14 @@ chmod +x i2pfirefox*
 
 Go developers with at least go 1.14 installed can build it from source with:
 
-```Go
-go get -u github.com/eyedeekay/i2pfirefox
+```Bash
+if [ -z $GOPATH ]; then
+  GOPATH=$HOME/go
+fi
+mkdir -p $GOPATH/src/github.com/eyedeekay/
+git clone https://github.com/eyedeekay/i2pbrowser $GOPATH/src/github.com/eyedeekay/i2pbrowser
+cd $GOPATH/src/github.com/eyedeekay/i2pbrowser
+make build
 ```
 
 What things does it do?
