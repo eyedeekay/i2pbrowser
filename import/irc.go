@@ -3,12 +3,12 @@ package i2pbrowser
 import (
 	"i2pgit.org/idk/libbrb"
 
+	. "github.com/eyedeekay/i2pbrowser/lib"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
-	"log"
 	"time"
-	. "github.com/eyedeekay/i2pbrowser/lib"
 )
 
 var brb *trayirc.BRB
@@ -50,7 +50,7 @@ func irc(sam, dir string, i2pdispatch bool) {
 		log.Println("failed to start embedded IRC server, proceeding anyway.", err)
 	}
 	brb.Run()
-	for (len(brb.OutputAutoLink()) > len("http://localhost:7669/connect?host=?name=invisibleirc")){
+	for len(brb.OutputAutoLink()) < len("http://localhost:7669/connect?host=?name=invisibleirc") {
 		time.Sleep(time.Second * 1)
 	}
 	bookmarks := filepath.Join(UserDir, "/bookmarks.html")
@@ -62,6 +62,4 @@ func irc(sam, dir string, i2pdispatch bool) {
 		}
 	}
 
-
-	
 }

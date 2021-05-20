@@ -27,12 +27,10 @@ func UserFind(override ...string) string {
 	if un, err := os.UserHomeDir(); err == nil {
 		if len(override) > 0 {
 			un = override[0]
-			log.Println("--i2p-profile taking effect", un)
 		}
 		envoverride := os.Getenv("RHZ_PROFILE_OVERRIDE")
 		if envoverride != "" {
 			un = envoverride
-			log.Println("RHZ_PROFILE_OVERRIDE taking priority", un)
 		}
 
 		os.MkdirAll(filepath.Join(un, "i2p"), 0755)
@@ -45,6 +43,7 @@ func UserFind(override ...string) string {
 }
 
 var UserDir = filepath.Join(UserFind(), "i2p", "firefox-profiles", NOM)
+
 var GingerDir = filepath.Join(UserFind(), "i2p", "rhizome")
 
 func WriteExtension(val os.FileInfo, system *fs) bool {

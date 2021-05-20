@@ -16,7 +16,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"runtime"
 	"time"
 
 	. "github.com/eyedeekay/go-fpw"
@@ -75,7 +74,9 @@ func proxyCheck() bool {
 	return true
 }
 
-func Main(chromium, chat bool, rundir string, args []string) {
+func Main(chromium, chat, blog bool, rundir string, args []string) {
+	zerobundle.JAVA_I2P_OPT_DIR = filepath.Join(UserFind(rundir), "i2p", "rhizome")
+	zerobundle.I2P_DIRECTORY_PATH = filepath.Join(UserFind(rundir), "i2p", "router")
 	if err := hello(); err != nil {
 		log.Fatal(err)
 	}
@@ -90,8 +91,8 @@ func Main(chromium, chat bool, rundir string, args []string) {
 	userdir := UserDir
 	for _, arg := range args {
 		if arg == "--app" {
-			UserDir = filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps")
-			err := os.MkdirAll(filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps", "chrome"), 0755)
+			UserDir = filepath.Join(UserFind(rundir), "i2p", "firefox-profiles", "webapps")
+			err := os.MkdirAll(filepath.Join(UserFind(rundir), "i2p", "firefox-profiles", "webapps", "chrome"), 0755)
 			if err != nil {
 				UserDir = userdir
 				log.Fatal(err)
@@ -128,57 +129,11 @@ func Main(chromium, chat bool, rundir string, args []string) {
 	if chat {
 		irc("7656", userdir, false)
 	}
+	if blog {
+		go Railroad(rundir)
+	}
 	if !chromium {
 		firefoxMain()
-	} else {
-		chromiumMain()
-	}
-	UserDir = userdir
-}
-
-func MainNoEmbeddedStuff(args []string) {
-	if err := hello(); err != nil {
-		log.Fatal(err)
-	}
-	userdir := UserDir
-	apparg := false
-	for _, arg := range args {
-		if arg == "--app" {
-			UserDir = filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps")
-			err := os.MkdirAll(filepath.Join(UserFind(), "i2p", "firefox-profiles", "webapps", "chrome"), 0755)
-			if err != nil {
-				UserDir = userdir
-				log.Fatal(err)
-			}
-			prefs := filepath.Join(UserDir, "chrome/userChrome.css")
-			if _, err := os.Stat(prefs); os.IsNotExist(err) {
-				if err := ioutil.WriteFile(prefs, []byte(APPCHROME), 0644); err == nil {
-					log.Println("wrote", prefs)
-				} else {
-					UserDir = userdir
-					log.Fatal(err)
-				}
-			}
-			apparg = true
-		} else {
-			ARGS = append(ARGS, arg)
-		}
-	}
-	if !apparg {
-		UserDir = userdir
-	}
-	chromium := false
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
-	if LocateFirefox() == "" {
-		chromium = true
-	}
-	if !proxyCheck() {
-		go proxyMain(ctx)
-	}
-	if !chromium {
-		firefoxLaunch()
 	} else {
 		chromiumMain()
 	}

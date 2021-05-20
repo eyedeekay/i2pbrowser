@@ -27,6 +27,7 @@ func portable() string {
 func main() {
 	chromium := flag.Bool("chromium", false, "use a chromium-based browser instead of a firefox-based browser.")
 	chat := flag.Bool("chat", true, "Start an IRC client and configure it to use with I2P")
+	blog := flag.Bool("blog", true, "Start built-in anonymous blogging tool and fork into the background")
 	rundir := flag.String("-i2p-profile", "", "override the normal profile directory")
 	flag.Parse()
 
@@ -35,5 +36,5 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Println(portable())
-	Main(*chromium, *chat, *rundir, flag.Args())
+	Main(*chromium, *chat, *blog, *rundir, flag.Args())
 }
