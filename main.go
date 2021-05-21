@@ -12,6 +12,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"runtime"
 
 	. "github.com/eyedeekay/i2pbrowser/import"
 )
@@ -26,9 +27,15 @@ func portable() string {
 
 func main() {
 	chromium := flag.Bool("chromium", false, "use a chromium-based browser instead of a firefox-based browser.")
-	chat := flag.Bool("chat", true, "Start an IRC client and configure it to use with I2P")
+	if runtime.GOOS == "darwin" {
+		chat := flag.Bool("chat", false, "Start an IRC client and configure it to use with I2P")
+		blog := flag.Bool("blog", false, "Start built-in anonymous blogging tool and fork into the background")
+	} else {
+		chat := flag.Bool("chat", true, "Start an IRC client and configure it to use with I2P")
+		blog := flag.Bool("blog", true, "Start built-in anonymous blogging tool and fork into the background")
+	}
 	app := flag.Bool("app", false, "Run in reduced \"App Mode\"")
-	blog := flag.Bool("blog", true, "Start built-in anonymous blogging tool and fork into the background")
+
 	rundir := flag.String("i2p-profile", "", "override the normal profile directory")
 	flag.Parse()
 	if *app {
