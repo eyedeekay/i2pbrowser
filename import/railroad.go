@@ -20,15 +20,14 @@ import (
 	"github.com/eyedeekay/sam3/i2pkeys"
 	"github.com/getlantern/systray"
 	"github.com/getlantern/systray/example/icon"
-	"github.com/kabukky/journey/configuration"
-	"github.com/kabukky/journey/database"
-	"github.com/kabukky/journey/filenames"
-	"github.com/kabukky/journey/flags"
-	"github.com/kabukky/journey/plugins"
-	"github.com/kabukky/journey/server"
-	"github.com/kabukky/journey/structure/methods"
-	"github.com/kabukky/journey/templates"
-	"github.com/webview/webview"
+	"i2pgit.org/idk/railroad/configuration"
+	"i2pgit.org/idk/railroad/database"
+	"i2pgit.org/idk/railroad/filenames"
+	"i2pgit.org/idk/railroad/plugins"
+	"i2pgit.org/idk/railroad/server"
+	"i2pgit.org/idk/railroad/structure/methods"
+	"i2pgit.org/idk/railroad/templates"
+	//	"github.com/webview/webview"
 	"i2pgit.org/idk/railroad/https"
 	"i2pgit.org/idk/zerocontrol"
 )
@@ -87,7 +86,7 @@ func onReady() {
 	go func() {
 		<-mEditUrl.ClickedCh
 		log.Println("Requesting edit")
-		cmd := exec.Command(findMe(), os.Args[1:]...)
+		cmd := exec.Command(findMe(), "--app", "http://localhost:8084")
 		var out []byte
 		var err error
 		if out, err = cmd.CombinedOutput(); err != nil {
@@ -108,8 +107,6 @@ func onReady() {
 func onExit() {
 	// clean up here
 }
-
-var webView webview.WebView
 
 var url string
 
@@ -309,14 +306,14 @@ func Railroad(rundir string) {
 
 	if status, addr, err := portCheck(configuration.Config.HttpHostAndPort); err == nil {
 		if status == true {
-			debug := true
-			webView := webview.New(debug)
-			defer webView.Destroy()
-			webView.SetTitle("Railroad Blog - Administration")
-			webView.SetSize(800, 600, webview.HintNone)
-			log.Println("http://" + addr + "/admin")
-			webView.Navigate("http://" + addr + "/admin")
-			webView.Run()
+			//			debug := true
+			cmd := exec.Command(findMe(), "--app", addr)
+			var out []byte
+			var err error
+			if out, err = cmd.CombinedOutput(); err != nil {
+				log.Fatal("COMMAND", err)
+			}
+			log.Println(string(out))
 			return
 		}
 	} else {
@@ -346,16 +343,6 @@ func Railroad(rundir string) {
 
 	// GOMAXPROCS - Maybe not needed
 	runtime.GOMAXPROCS(runtime.NumCPU())
-
-	// Write log to file if the log flag was provided
-	if flags.Log != "" {
-		logFile, err := os.OpenFile(flags.Log, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-		if err != nil {
-			log.Fatal("Error: Couldn't open log file: " + err.Error())
-		}
-		defer logFile.Close()
-		log.SetOutput(logFile)
-	}
 
 	// Configuration is read from config.json by loading the configuration package
 
@@ -387,15 +374,7 @@ func Railroad(rundir string) {
 	// HTTP(S) Server
 	httpPort := configuration.Config.HttpHostAndPort
 	httpsPort := configuration.Config.HttpsHostAndPort
-	// Check if HTTP/HTTPS flags were provided
-	if flags.HttpPort != "" {
-		components := strings.SplitAfterN(httpPort, ":", 2)
-		httpPort = components[0] + flags.HttpPort
-	}
-	if flags.HttpsPort != "" {
-		components := strings.SplitAfterN(httpsPort, ":", 2)
-		httpsPort = components[0] + flags.HttpsPort
-	}
+
 	// Determine the kind of https support (as set in the config.json)
 
 	switch configuration.Config.HttpsUsage {

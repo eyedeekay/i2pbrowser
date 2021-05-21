@@ -27,14 +27,19 @@ func portable() string {
 func main() {
 	chromium := flag.Bool("chromium", false, "use a chromium-based browser instead of a firefox-based browser.")
 	chat := flag.Bool("chat", true, "Start an IRC client and configure it to use with I2P")
+	app := flag.Bool("app", false, "Run in reduced \"App Mode\"")
 	blog := flag.Bool("blog", true, "Start built-in anonymous blogging tool and fork into the background")
-	rundir := flag.String("-i2p-profile", "", "override the normal profile directory")
+	rundir := flag.String("i2p-profile", "", "override the normal profile directory")
 	flag.Parse()
+	if *app {
+		*blog = false
+		*chat = false
+	}
 
 	err := os.Setenv("RHZ_PROFILE_OVERRIDE", portable())
 	if err != nil {
 		log.Fatal(err)
 	}
 	log.Println(portable())
-	Main(*chromium, *chat, *blog, *rundir, flag.Args())
+	Main(*chromium, *chat, *blog, *app, *rundir, flag.Args())
 }

@@ -26,6 +26,10 @@ LAST_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).$(PREV_VERSION)
 LAUNCH_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION)$(PROD_VERSION)
 
 GO_COMPILER_OPTS = -a -tags netgo #-ldflags '-w -extldflags "-static"'
+CGO_ENABLED=1
+export CGO_ENABLED=1
+GOPATH=$(HOME)/go
+export GOPATH=$(HOME)/go
 
 echo: fmt
 	echo $(LAUNCH_VERSION) $(ZERO_VERSION) $(EXT_VERSION) $(PROD_VERSION)
@@ -93,7 +97,7 @@ all: pure variant
 pure: fmt lib/assets.go windows osx linux
 
 windows: fmt
-	GOOS=windows go build $(GO_COMPILER_OPTS) -o $(BIN_NAME).exe
+	GOOS=windows CC=x86_64-w64-mingw32-gcc-win32 go build $(GO_COMPILER_OPTS) -ldflags="-H windowsgui" -o $(BIN_NAME).exe
 
 osx: fmt
 	GOOS=darwin go build $(GO_COMPILER_OPTS) -o $(BIN_NAME)-osx
@@ -104,7 +108,7 @@ linux: fmt
 variant: fmt lib/assets.go vwindows vosx vlinux
 
 vwindows: fmt
-	GOOS=windows go build $(GO_COMPILER_OPTS) -tags variant -o $(BIN_NAME)-variant.exe
+	GOOS=windows CC=x86_64-w64-mingw32-gcc-win32 go build $(GO_COMPILER_OPTS) -ldflags="-H windowsgui" -tags variant -o $(BIN_NAME)-variant.exe
 
 vosx: fmt
 	GOOS=darwin go build $(GO_COMPILER_OPTS) -tags variant -o $(BIN_NAME)-variant-osx

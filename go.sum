@@ -831,11 +831,8 @@ github.com/riobard/go-x25519 v0.0.0-20190716001027-10cc4d8d0b33/go.mod h1:BjmVxz
 github.com/rogpeppe/fastuuid v0.0.0-20150106093220-6724a57986af/go.mod h1:XWv6SoW27p1b0cqNHllgS5HIMJraePCO15w5zCzIWYg=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
 github.com/rogpeppe/go-internal v1.6.2/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTEfhy4qGm1nDQc=
-github.com/russross/blackfriday v1.5.2/go.mod h1:JO/DiYxRf+HjHt06OyowR9PTA263kcR/rfWxYHBV53g=
 github.com/russross/blackfriday v1.6.0 h1:KqfZb0pUVN2lYqZUYRddxF4OR8ZMURnJIG5Y3VRLtww=
 github.com/russross/blackfriday v1.6.0/go.mod h1:ti0ldHuxg49ri4ksnFxlkCfN+hvslNlmVHqNRXXJNAY=
-github.com/russross/blackfriday v2.0.0+incompatible h1:cBXrhZNUf9C+La9/YpS+UHpUT8YD6Td9ZMSU9APFcsk=
-github.com/russross/blackfriday v2.0.0+incompatible/go.mod h1:JO/DiYxRf+HjHt06OyowR9PTA263kcR/rfWxYHBV53g=
 github.com/russross/blackfriday/v2 v2.0.1/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
 github.com/ryanuber/columnize v0.0.0-20160712163229-9b3edd62028f/go.mod h1:sm1tb6uqfes/u+d4ooFouqFdy9/2g9QGwK3SQygK0Ts=
 github.com/sacloud/libsacloud v1.26.1/go.mod h1:79ZwATmHLIFZIMd7sxA3LwzVy/B77uj3LDoToVTxDoQ=
@@ -847,7 +844,6 @@ github.com/sethvargo/go-password v0.2.0/go.mod h1:Ym4Mr9JXLBycr02MFuVQ/0JHidNetS
 github.com/sger/go-hashdir v0.0.1 h1:ii/IIGYNJCpvSqTV63LbfASPpQqazRRS9ErvmBAUNw0=
 github.com/sger/go-hashdir v0.0.1/go.mod h1:LmCpMSJQKVSNBt2rFKz/upjHTGfwNxn5MAmIAUd4qXg=
 github.com/shurcooL/httpfs v0.0.0-20190707220628-8d4bc4ba7749/go.mod h1:ZY1cvUeJuFPAdZ/B6v7RHavJWZn2YPVFQ1OSXhCGOkg=
-github.com/shurcooL/sanitized_anchor_name v1.0.0 h1:PdmoCO6wvbs+7yrJyMORt4/BmY5IYyJwS/kOiWx8mHo=
 github.com/shurcooL/sanitized_anchor_name v1.0.0/go.mod h1:1NzhyTcUVG4SuEtjjoZeVRXNmyL/1OwPU0+IJeTBvfc=
 github.com/sirupsen/logrus v1.2.0/go.mod h1:LxeOpSwHxABJmUn/MG1IvRgCAasNZTLOkJPxbbu5VWo=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
@@ -1278,6 +1274,14 @@ i2pgit.org/idk/libbrb v0.0.0-20210508203107-2ad39d4f85c6 h1:uAKEPs0aOh9FdlyJ4Jmr
 i2pgit.org/idk/libbrb v0.0.0-20210508203107-2ad39d4f85c6/go.mod h1:Lkl5UvP81tdpAg10lhf8HqwpXnhLpz0rw9OodJK/3xM=
 i2pgit.org/idk/railroad v0.0.0-20210415002900-6492d5d1dbd8 h1:eotrQwn19Fnmp7/xcPTrzIIz8u/OZ3t+t6IhTkI2CIo=
 i2pgit.org/idk/railroad v0.0.0-20210415002900-6492d5d1dbd8/go.mod h1:LFvgxiIIFvpleEFX1WJm5Z4Brzk5k8Bf+ihCO4CFOlE=
+i2pgit.org/idk/railroad v0.0.0-20210520032310-552253683468 h1:T1AHGK3aJvyT/J56cNfFmz4EXuNe0PT/r4aDiN73+0E=
+i2pgit.org/idk/railroad v0.0.0-20210520032310-552253683468/go.mod h1:LFvgxiIIFvpleEFX1WJm5Z4Brzk5k8Bf+ihCO4CFOlE=
+i2pgit.org/idk/railroad v0.0.0-20210521042952-863be77e3a7b h1:16f6sX89Ay1zxRDkep5+XCLBAgpF2YywIKg1mMMdnog=
+i2pgit.org/idk/railroad v0.0.0-20210521042952-863be77e3a7b/go.mod h1:LFvgxiIIFvpleEFX1WJm5Z4Brzk5k8Bf+ihCO4CFOlE=
+i2pgit.org/idk/railroad v0.0.0-20210521045638-9a9fc77a8b37 h1:u11bPsnDo+42DC6ummADoPkPpqxz2CuVgtF5aqJ79ds=
+i2pgit.org/idk/railroad v0.0.0-20210521045638-9a9fc77a8b37/go.mod h1:4xoG7vTvvqcmQ/C/+fPYGLLQzFLrkuExk06zmzggn/w=
+i2pgit.org/idk/railroad v0.0.0-20210521050724-48bf52a04059 h1:ipzyURlmO42lDDkAKdpnu7HrFmaydHblTttB0YGRo+s=
+i2pgit.org/idk/railroad v0.0.0-20210521050724-48bf52a04059/go.mod h1:wVDgy0SoC9eAQbDSPAOFSolyNTipnJ/XFNBqd8wMYJ8=
 i2pgit.org/idk/zerocontrol v0.0.0-20210415002655-ac2964c74407 h1:QC9E7lwdPZ5q9Lj1gwVlbVKKc508kuR3dFxv4ZEmWA4=
 i2pgit.org/idk/zerocontrol v0.0.0-20210415002655-ac2964c74407/go.mod h1:iIdXfyGZN6ENp/63zs31fnZCS96l6phZViNXvjlg86w=
 rsc.io/binaryregexp v0.2.0/go.mod h1:qTv7/COck+e2FymRvadv62gMdZztPaShugOCi3I+8D8=
