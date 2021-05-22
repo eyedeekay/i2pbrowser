@@ -83,7 +83,7 @@ GingerShrew:
 	#git clone https://github.com/eyedeekay/GingerShrew
 
 zerobundle:
-	git clone https://github.com/eyedeekay/zerobundle #-b $(ZERO_VERSION)
+	git clone https://github.com/eyedeekay/zerobundle; cd zerobundle && git pull origin master; cd ..
 
 sum:
 	sha256sum ifox/i2ppb@eyedeekay.github.io.xpi
