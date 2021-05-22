@@ -89,8 +89,10 @@ func Main(chromium, chat, blog, app bool, rundir string, args []string) {
 			log.Fatal("Unable to set profile directory.", err)
 		}
 	}
+	log.Println("Profile check done")
 	userdir := UserDir
 	if app {
+		log.Println("Starting in app mode")
 		UserDir = filepath.Join(UserFind(rundir), "i2p", "firefox-profiles", "webapps")
 		err := os.MkdirAll(filepath.Join(UserFind(rundir), "i2p", "firefox-profiles", "webapps", "chrome"), 0755)
 		if err != nil {
@@ -98,6 +100,7 @@ func Main(chromium, chat, blog, app bool, rundir string, args []string) {
 			log.Fatal(err)
 		}
 		prefs := filepath.Join(UserDir, "chrome/userChrome.css")
+		log.Println("App Mode profile directory assured")
 		if _, err := os.Stat(prefs); os.IsNotExist(err) {
 			if err := ioutil.WriteFile(prefs, []byte(APPCHROME), 0644); err == nil {
 				log.Println("wrote", prefs)
@@ -106,6 +109,7 @@ func Main(chromium, chat, blog, app bool, rundir string, args []string) {
 				log.Fatal(err)
 			}
 		}
+		log.Println("App Mode configuration complete")
 	}
 	for _, arg := range args {
 		ARGS = append(ARGS, arg)
@@ -114,6 +118,7 @@ func Main(chromium, chat, blog, app bool, rundir string, args []string) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	if LocateFirefox() == "" {
+		log.Println("Firefox not found, falling back to Chrom/ium")
 		chromium = true
 	}
 	if err := WriteI2CPConf(); err != nil {
@@ -133,9 +138,11 @@ func Main(chromium, chat, blog, app bool, rundir string, args []string) {
 		go proxyMain(ctx)
 	}
 	if chat {
+		log.Println("Starting IRC2P client")
 		irc("7656", userdir, false)
 	}
 	if blog {
+		log.Println("Starting I2P blog")
 		go Railroad(rundir)
 	}
 	if !chromium {
