@@ -50,7 +50,8 @@ func irc(sam, dir string, i2pdispatch bool) {
 		log.Println("failed to start embedded IRC server, proceeding anyway.", err)
 	}
 	brb.Run()
-	for len(brb.OutputAutoLink()) > len("http://localhost:7669/connect?host=?name=invisibleirc") {
+	for len(brb.OutputAutoLink()) < len("http://localhost:7669/connect?host=?name=invisibleirc") {
+		log.Println(len(brb.OutputAutoLink()), len("http://localhost:7669/connect?host=?name=invisibleirc"))
 		time.Sleep(time.Second * 1)
 	}
 	bookmarks := filepath.Join(UserDir, "/bookmarks.html")
