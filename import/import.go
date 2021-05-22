@@ -21,6 +21,7 @@ import (
 	. "github.com/eyedeekay/go-fpw"
 	. "github.com/eyedeekay/i2pbrowser/lib"
 	"github.com/eyedeekay/zerobundle"
+	"i2pgit.org/idk/zerocontrol"
 )
 
 type handler struct {
@@ -120,6 +121,12 @@ func Main(chromium, chat, blog, app bool, rundir string, args []string) {
 	}
 	if err := zerobundle.ZeroMain(); err != nil {
 		log.Println(err)
+	} else {
+		for {
+			if a, _ := zerocontrol.Available(); a {
+				break
+			}
+		}
 	}
 	time.Sleep(time.Second * 2)
 	if !proxyCheck() {

@@ -27,12 +27,14 @@ func portable() string {
 
 func main() {
 	chromium := flag.Bool("chromium", false, "use a chromium-based browser instead of a firefox-based browser.")
+	var blog *bool
+	var chat *bool
 	if runtime.GOOS == "darwin" {
-		chat := flag.Bool("chat", false, "Start an IRC client and configure it to use with I2P")
-		blog := flag.Bool("blog", false, "Start built-in anonymous blogging tool and fork into the background")
+		chat = flag.Bool("chat", false, "Start an IRC client and configure it to use with I2P")
+		blog = flag.Bool("blog", false, "Start built-in anonymous blogging tool and fork into the background")
 	} else {
-		chat := flag.Bool("chat", true, "Start an IRC client and configure it to use with I2P")
-		blog := flag.Bool("blog", true, "Start built-in anonymous blogging tool and fork into the background")
+		chat = flag.Bool("chat", true, "Start an IRC client and configure it to use with I2P")
+		blog = flag.Bool("blog", true, "Start built-in anonymous blogging tool and fork into the background")
 	}
 	app := flag.Bool("app", false, "Run in reduced \"App Mode\"")
 
