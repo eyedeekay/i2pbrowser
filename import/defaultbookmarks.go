@@ -9,7 +9,7 @@ func GenerateDefaultBookmarks(dir, configfile string) string {
 	if err != nil {
 		log.Fatalf("Config file generation error, %s", err)
 	}
-	for len(brb.OutputAutoLink()) > len("http://localhost:7669/connect?host=?name=invisibleirc") {
+	for len(brb.OutputAutoLink()) < len("http://localhost:7669/connect?host=?name=invisibleirc") {
 	}
 	return `<!DOCTYPE NETSCAPE-Bookmark-file-1>
   <!-- This is an automatically generated file.
