@@ -162,6 +162,8 @@ github.com/eyedeekay/I2P-Configuration-for-Chromium v0.0.0-20200802063209-897327
 github.com/eyedeekay/checki2cp v0.0.17/go.mod h1:kdHq1LqZxi2qarfyospSHrh4Aju5SydX+2AzlJKhSJM=
 github.com/eyedeekay/checki2cp v0.0.18-0.20210415001943-02b65fb958e5 h1:pYjtdbzP3TDFliCllfGXHtceqboUhL78Gz7IUc2n+w0=
 github.com/eyedeekay/checki2cp v0.0.18-0.20210415001943-02b65fb958e5/go.mod h1:kdHq1LqZxi2qarfyospSHrh4Aju5SydX+2AzlJKhSJM=
+github.com/eyedeekay/checki2cp v0.0.18 h1:EdJTejvxWiu6FsvXceAwrlQf4EheDuUJAP/hdcRAaxo=
+github.com/eyedeekay/checki2cp v0.0.18/go.mod h1:kdHq1LqZxi2qarfyospSHrh4Aju5SydX+2AzlJKhSJM=
 github.com/eyedeekay/eephttpd v0.0.0-20190903000420-52f5a8485a4e/go.mod h1:wFPQsNBnY95LkuujFEZARo7slafRwoF0D97FFHBoZro=
 github.com/eyedeekay/go-ccw v0.0.0-20200403222455-d0e01222fd2a h1:zPI9ngyid7Wr92EHYanSOee6z0rWSlyKPt1nnOmZCu4=
 github.com/eyedeekay/go-ccw v0.0.0-20200403222455-d0e01222fd2a/go.mod h1:k3EtNXTNE8UHnYqq/Ny7QiVPZIFtdiCuckEPT0qkR14=
