@@ -20,8 +20,8 @@ NOSS_VERSION=`./amo-version.sh noscript`
 HTSV_VERSION=`./amo-version.sh https-everywhere`
 ZERO_VERSION=`./get_latest_release.sh "i2p-zero/i2p-zero"`
 ZERO_VERSION_B=`./get_latest_release.sh "i2p-zero/i2p-zero" | tr -d 'v.'`
-PREV_VERSION=.098
-PROD_VERSION=.099
+PREV_VERSION=.099
+PROD_VERSION=.0991
 LAST_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION).$(PREV_VERSION)
 LAUNCH_VERSION=$(ZERO_VERSION_B).$(EXT_VERSION)$(PROD_VERSION)
 
@@ -96,6 +96,10 @@ all: pure variant
 
 pure: fmt lib/assets.go windows osx linux
 
+havelibs: fmt lib/assets.go windows linux
+vhavelibs: fmt lib/assets.go vwindows vlinux
+
+
 windows: fmt
 	GOOS=windows CC=x86_64-w64-mingw32-gcc-win32 go build $(GO_COMPILER_OPTS) -ldflags="-H windowsgui" -o $(BIN_NAME).exe
 
@@ -163,17 +167,17 @@ upload-all: upload upload-variant
 
 release-all: release upload-all
 
-release-pure:
+release-pure: havelibs
 	make release; true
 	make linux upload-linux
 	make windows upload-windows
-	make osx upload-osx
+	#make osx upload-osx
 
-release-variant: 
+release-variant: vhavelibs
 	make release; true
 	make vlinux upload-variant-linux
 	make vwindows upload-variant-windows
-	make vosx upload-variant-osx
+	#make vosx upload-variant-osx
 
 clean-release: clean release-pure release-variant
 
