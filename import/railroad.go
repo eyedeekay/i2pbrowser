@@ -59,7 +59,7 @@ func onReady() {
 	systray.SetTitle("Railroad Blog")
 	systray.SetTooltip("Blog is running on I2P: http://" + listener.Addr().(i2pkeys.I2PAddr).Base32())
 	mShowUrl := systray.AddMenuItem("http://"+listener.Addr().(i2pkeys.I2PAddr).Base32(), "copy blog address to clipboard")
-	mEditUrl := systray.AddMenuItem("Edit your blog", "copy blog address to clipboard")
+	mEditUrl := systray.AddMenuItem("Edit your blog", "open a local window for writing")
 	if strings.HasSuffix(configuration.Config.HttpsUrl, "i2p") {
 		if !strings.HasSuffix(configuration.Config.HttpsUrl, "b32.i2p") {
 			mCopyUrl := systray.AddMenuItem("Copy blog address", "copy blog address to clipboard")
@@ -86,7 +86,7 @@ func onReady() {
 	go func() {
 		<-mEditUrl.ClickedCh
 		log.Println("Requesting edit")
-		cmd := exec.Command(findMe(), "--app", "http://localhost:8084")
+		cmd := exec.Command(findMe(), "-app", "http://localhost:8084")
 		var out []byte
 		var err error
 		if out, err = cmd.CombinedOutput(); err != nil {
