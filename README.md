@@ -3,7 +3,7 @@ I2P Profile Configuring Launcher for Firefox, Multiplatform
 
 Configures a Firefox profile for use with I2P Sites, I2P applications, and
 I2P configuration. Provides a bundled I2P Router and a pre-configured
-browser. Notably, it is completely compatible with any pre-installed router
+browser profile. Notably, it is completely compatible with any pre-installed router
 while also not requiring a pre-installed I2P router, which means that it
 can be used as a one-click introduction to I2P use for beginners while *also*
 being a convenient, automatic way to configure I2P Browsing for I2P users
