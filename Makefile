@@ -147,7 +147,7 @@ upload-windows:
 	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumwindows)" -n "$(BIN_NAME).exe" -f "$(BIN_NAME).exe"
 
 upload-osx:
-	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumdarwin)" -n "$(BIN_NAME)-osx" -f "$(BIN_NAME)-osx"
+	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumdarwin)" -n "$(BIN_NAME)-osx.zip" -f "$(BIN_NAME)-osx.zip"
 
 upload-linux:
 	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumlinux)" -n "$(BIN_NAME)" -f "$(BIN_NAME)"
@@ -158,7 +158,7 @@ upload-variant-windows:
 	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumvwindows)" -n "$(BIN_NAME)-variant.exe" -f "$(BIN_NAME)-variant.exe"
 
 upload-variant-osx:
-	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumvdarwin)" -n "$(BIN_NAME)-variant-osx" -f "$(BIN_NAME)-variant-osx"
+	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumvdarwin)" -n "$(BIN_NAME)-variant-osx.zip" -f "$(BIN_NAME)-variant-osx.zip"
 
 upload-variant-linux:
 	gothub upload -R -u eyedeekay -r "$(BIN_NAME)" -t $(LAUNCH_VERSION) -l "$(sumvlinux)" -n "$(BIN_NAME)-variant" -f "$(BIN_NAME)-variant"
