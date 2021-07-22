@@ -21,7 +21,7 @@ require (
 
 replace github.com/zserge/lorca => github.com/eyedeekay/lorca v0.1.9-0.20200403221704-ea2ffcadfc1b
 
-replace github.com/prologic/eris => github.com/prologic/eris v1.6.7-0.20210430033226-64d4acc46ca7
+replace git.mills.io/prologic/eris => git.mills.io/prologic/eris v1.6.7-0.20210430033226-64d4acc46ca7
 
 replace github.com/eyedeekay/zerobundle => ./zerobundle
 
